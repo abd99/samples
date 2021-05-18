@@ -5,9 +5,9 @@ var dartNodePreambleSelf = typeof global !== "undefined" ? global : window;
 
 var self = Object.create(dartNodePreambleSelf);
 
-self.scheduleImmediate = self.setImmediate
+self.scheduleImmediate = typeof setImmediate !== "undefined"
     ? function (cb) {
-        dartNodePreambleSelf.setImmediate(cb);
+        setImmediate(cb);
       }
     : function(cb) {
         setTimeout(cb, 0);
@@ -31,9 +31,28 @@ if (typeof __filename !== "undefined") {
   self.__filename = __filename;
 }
 
+if (typeof Buffer !== "undefined") {
+  self.Buffer = Buffer;
+}
+
 // if we're running in a browser, Dart supports most of this out of box
 // make sure we only run these in Node.js environment
-if (!dartNodePreambleSelf.window) {
+
+var dartNodeIsActuallyNode = !dartNodePreambleSelf.window
+
+try {
+  // Check if we're in a Web Worker instead.
+  if ("undefined" !== typeof WorkerGlobalScope && dartNodePreambleSelf instanceof WorkerGlobalScope) {
+    dartNodeIsActuallyNode = false;
+  }
+
+  // Check if we're in Electron, with Node.js integration, and override if true.
+  if ("undefined" !== typeof process && process.versions && process.versions.hasOwnProperty('electron') && process.versions.hasOwnProperty('node')) {
+    dartNodeIsActuallyNode = true;
+  }
+} catch(e) {}
+
+if (dartNodeIsActuallyNode) {
   // This line is to:
   // 1) Prevent Webpack from bundling.
   // 2) In Webpack on Node.js, make sure we're using the native Node.js require, which is available via __non_webpack_require__

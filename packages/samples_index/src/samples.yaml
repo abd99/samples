@@ -13,7 +13,7 @@ samples:
       - url: images/gallery5.png
         alt: Shrine app screnshot
     source: https://github.com/flutter/gallery
-    web: https://flutter.github.io/gallery
+    web: https://gallery.flutter.dev
     description: >
       A collection of material design widgets, behaviors, and vignettes
       implemented with Flutter.
@@ -289,6 +289,72 @@ samples:
     platforms: ['ios']
     type: sample
 
+  - name: Infinite List
+    author: Flutter
+    screenshots:
+      - url: images/infinite_list.png
+        alt: Infinite List screenshot
+    source: https://github.com/flutter/samples/tree/master/infinite_list
+    description: >
+      A Flutter sample app that shows an implementation of the "infinite list" UX pattern. 
+      That is, a list is shown to the user as if it was continuous although it is internally 
+      paginated. This is a common feature of mobile apps, from shopping catalogs 
+      through search engines to social media clients.
+    difficulty: intermediate
+    widgets:
+      - Selector
+      - AppBar
+      - ListTile
+      - ListView
+    packages:
+      - provider
+      - meta
+    tags: ['sample', 'material', 'design', 'android', 'ios']
+    platforms: ['ios', 'android']
+    type: sample
+
+  - name: IOS App Clip
+    author: Flutter
+    screenshots:
+      - url: images/ios_app_clip.png
+        alt: IOS App Clip screenshot
+    source: https://github.com/flutter/samples/tree/master/ios_app_clip
+    description: >
+      A Flutter sample app that shows the demonstrating integration with iOS 14's App Clip,
+      the App Clip target is rendered by Flutter and uses a plugin.
+    difficulty: intermediate
+    widgets:
+      - CupertinoApp
+      - AppBar
+      - FlutterLogo
+    packages:
+      - device_info
+    tags: ['sample', 'Device Info', 'ios']
+    platforms: ['ios']
+    type: sample
+
+  - name: Testing App
+    author: Flutter
+    screenshots:
+      - url: images/testing_app1.png
+        alt: Testing App screenshot
+      - url: images/testing_app2.png
+        alt: Testing App screenshot
+    source: https://github.com/flutter/samples/tree/master/testing_app
+    description: >
+      A Flutter sample app that shows different types of testing in Flutter.
+    difficulty: intermediate
+    widgets:
+      - AppBar
+      - ListTile
+      - ListView
+      - Snackbar
+    packages:
+      - provider
+    tags: ['sample', 'material', 'android', 'ios']
+    platforms: ['ios', 'android']
+    type: sample
+
   - name: Provider Shopper
     author: Flutter
     screenshots:
@@ -313,6 +379,52 @@ samples:
     type: sample
     web: web/provider_shopper
 
+  - name: Web Dashboard
+    author: Flutter
+    screenshots:
+      - url: images/web_dashboard1.png
+        alt: Web Dashboard screenshot
+      - url: images/web_dashboard2.png
+        alt: Web Dashbaord screenshot
+      - url: images/web_dashboard3.png
+        alt: Web Dashboard screenshot
+    source: https://github.com/flutter/samples/tree/master/experimental/web_dashboard
+    description: >
+      A dashboard app that displays daily entries. Demonstrates AdaptiveScaffold and NavigationRail. Showcases how to
+      use Firebase, but uses a mock backend by default.
+    difficulty: advanced
+    widgets:
+      - AdaptiveScaffold
+      - NavigationRail
+      - FutureBuilder
+      - StreamBuilder
+    packages:
+      - firebase
+    tags: ['intermediate', 'sample', 'firebase']
+    platforms: ['ios', 'android', 'web']
+    type: sample
+    web: web/web_dashboard
+
+  - name: Form App
+    author: Flutter
+    screenshots:
+      - url: images/form_app1.png
+        alt: Form App screenshot
+      - url: images/form_app2.png
+        alt: Form App screenshot
+      - url: images/form_app3.png
+        alt: Form App screenshot
+    source: https://github.com/flutter/samples/tree/master/form_app
+    description: >
+      A Flutter sample app that shows how to use Forms.
+    difficulty: intermediate
+    widgets:
+      - Form
+    packages: []
+    tags: ['intermediate', 'sample', 'forms']
+    platforms: ['ios', 'android', 'web']
+    type: sample
+    web: web/form_app
 ###################
 #### Web Demos ####
 ###################
@@ -396,36 +508,18 @@ samples:
     web: web/slide_puzzle
     type: demo
 
-  - name: Timeflow
-    author: Fabian Stein
+  - name: Dice
+    author: Jaime Blasco
     screenshots:
-      - url: images/timeflow1.png
-        alt: Timeflow screenshot
-    source: https://github.com/Fabian-Stein/timeflow
+      - url: images/dice.png
+        alt: Dice screenshot
+    source: https://github.com/jamesblasco/zflutter/blob/master/zflutter/example/lib/examples/dice/dice.dart
     description: >
-      A gentle animation that provides a calming experience to stressed developers.
+      A demo of 3d animation using dice
     difficulty: advanced
     widgets: []
     packages: []
     platforms: ['web']
     tags: ['demo', 'animation']
-    web: web/timeflow
-    type: demo
-
-  - name: Vision Challenge
-    author: Yukkei Choi
-    screenshots:
-      - url: images/vision_challenge1.png
-        alt: Vision Challenge screenshot
-      - url: images/vision_challenge2.png
-        alt: Vision Challenge screenshot
-    source: https://github.com/flutter/samples/tree/master/web/vision_challenge
-    description: >
-      A fun game to test your color perception abilities.
-    difficulty: advanced
-    widgets: []
-    packages: []
-    platforms: ['web']
-    tags: ['demo', 'game']
-    web: web/vision_challenge
+    web: https://z.flutter.gallery/#/dice
     type: demo

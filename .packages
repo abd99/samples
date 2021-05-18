@@ -27,6 +27,7 @@ coverage:packages/coverage/
 crypto:packages/crypto/
 csslib:packages/csslib/
 dart_style:packages/dart_style/
+file:packages/file/
 fixnum:packages/fixnum/
 glob:packages/glob/
 graphs:packages/graphs/
@@ -46,7 +47,6 @@ matcher:packages/matcher/
 mdc_web:packages/mdc_web/
 meta:packages/meta/
 mime:packages/mime/
-multi_server_socket:packages/multi_server_socket/
 node_interop:packages/node_interop/
 node_io:packages/node_io/
 node_preamble:packages/node_preamble/
@@ -60,7 +60,6 @@ protobuf:packages/protobuf/
 pub_semver:packages/pub_semver/
 pubspec_parse:packages/pubspec_parse/
 quiver:packages/quiver/
-resource:packages/resource/
 samples_index:packages/samples_index/
 sass:packages/sass/
 sass_builder:packages/sass_builder/
