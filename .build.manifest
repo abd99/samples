@@ -307,6 +307,14 @@ images/logos/logo_flutter_1080px_clr.png
 images/logos/logo_flutter_96px_clr.png
 images/logos/logo_lockup_flutter_horizontal_wht.png
 images/logos/logo_lockup_flutter_horizontal_wht_96.png
+images/navigation_and_routing1.png
+images/navigation_and_routing1_thumb.png
+images/navigation_and_routing2.png
+images/navigation_and_routing2_thumb.png
+images/navigation_and_routing3.png
+images/navigation_and_routing3_thumb.png
+images/navigation_and_routing4.png
+images/navigation_and_routing4_thumb.png
 images/particle_background1.png
 images/particle_background1_thumb.png
 images/place_tracker1.png
@@ -365,6 +373,7 @@ make_authenticated_requests.html
 mock_dependencies_using_mockito.html
 navigate_to_a_new_screen_and_back.html
 navigate_with_named_routes.html
+navigation_and_routing.html
 packages/$sdk/_internal/strong.sum
 packages/$sdk/dev_compiler/kernel/amd/dart_sdk.js
 packages/$sdk/dev_compiler/kernel/amd/require.js
@@ -375,7 +384,6 @@ packages/$sdk/dev_compiler/web/dart_stack_trace_mapper.js
 packages/_fe_analyzer_shared/src/parser/parser.md
 packages/analyzer/src/summary/format.fbs
 packages/build_runner/src/server/README.md
-packages/build_runner/src/server/build_updates_client/hot_reload_client.dart.js
 packages/build_runner/src/server/build_updates_client/live_reload_client.js
 packages/build_runner/src/server/graph_viz.html
 packages/build_runner/src/server/graph_viz.js
@@ -768,7 +776,6 @@ packages/mdc_web/src/scss/typography/_variables.scss
 packages/mdc_web/src/scss/typography/mdc-typography.scss
 packages/node_preamble/preamble.js
 packages/node_preamble/preamble.min.js
-packages/package_resolver/src/test_package_config
 packages/pedantic/analysis_options.1.0.0.yaml
 packages/pedantic/analysis_options.1.1.0.yaml
 packages/pedantic/analysis_options.1.11.0.yaml
