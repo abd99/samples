@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "linting_tool")
-set(APPLICATION_ID "dev.flutter.linting_tool")
+set(APPLICATION_ID "com.abd99.lintingTool")
 
 cmake_policy(SET CMP0063 NEW)
 

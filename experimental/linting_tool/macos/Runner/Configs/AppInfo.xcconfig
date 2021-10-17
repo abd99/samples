@@ -8,7 +8,7 @@
 PRODUCT_NAME = linting_tool
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = dev.flutter.lintingTool
+PRODUCT_BUNDLE_IDENTIFIER = com.abd99.lintingTool;
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2021 dev.flutter. All rights reserved.

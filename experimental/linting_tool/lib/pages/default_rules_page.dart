@@ -48,7 +48,7 @@ class DefaultRulesPage extends StatelessWidget {
             label: const Text('Back'),
           ),
         ),
-        leadingWidth: 160.0,
+        leadingWidth: 180.0,
         toolbarHeight: 38.0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
