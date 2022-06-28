@@ -184,8 +184,7 @@ class _NavigationRailHeader extends StatelessWidget {
       animation: animation,
       builder: (context, child) {
         return Align(
-          alignment: AlignmentDirectional.centerStart,
-          widthFactor: animation.value,
+          alignment: Alignment.centerLeft,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -193,7 +192,6 @@ class _NavigationRailHeader extends StatelessWidget {
                 height: 56,
                 child: Row(
                   children: [
-                    const SizedBox(width: 6),
                     InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(16)),
                       onTap: () {
@@ -228,6 +226,7 @@ class _NavigationRailHeader extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 45 * animation.value),
                   ],
                 ),
               ),
