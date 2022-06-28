@@ -12,13 +12,14 @@ import 'package:provider/provider.dart';
 
 class SavedRuleTile extends StatefulWidget {
   final Rule rule;
+
   const SavedRuleTile({
     required this.rule,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _SavedRuleTileState createState() => _SavedRuleTileState();
+  State<SavedRuleTile> createState() => _SavedRuleTileState();
 }
 
 class _SavedRuleTileState extends State<SavedRuleTile> {
@@ -27,8 +28,8 @@ class _SavedRuleTileState extends State<SavedRuleTile> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var textTheme = theme.textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     final rule = widget.rule;
     final incompatibleString =
         rule.incompatible.isNotEmpty ? rule.incompatible.join(', ') : 'none';

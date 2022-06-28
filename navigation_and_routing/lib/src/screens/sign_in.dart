@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Credentials {
@@ -17,11 +16,11 @@ class SignInScreen extends StatefulWidget {
 
   const SignInScreen({
     required this.onSignIn,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _SignInScreenState createState() => _SignInScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {

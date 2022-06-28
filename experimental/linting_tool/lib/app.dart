@@ -14,12 +14,12 @@ import 'package:provider/provider.dart';
 final client = http.Client();
 
 class LintingTool extends StatefulWidget {
-  const LintingTool({Key? key}) : super(key: key);
+  const LintingTool({super.key});
 
   static const String homeRoute = routes.homeRoute;
 
   @override
-  _LintingToolState createState() => _LintingToolState();
+  State<LintingTool> createState() => _LintingToolState();
 }
 
 class _LintingToolState extends State<LintingTool> {

@@ -9,10 +9,10 @@ import 'routing.dart';
 import 'screens/navigator.dart';
 
 class Bookstore extends StatefulWidget {
-  const Bookstore({Key? key}) : super(key: key);
+  const Bookstore({super.key});
 
   @override
-  _BookstoreState createState() => _BookstoreState();
+  State<Bookstore> createState() => _BookstoreState();
 }
 
 class _BookstoreState extends State<Bookstore> {
@@ -68,7 +68,7 @@ class _BookstoreState extends State<Bookstore> {
             // https://github.com/flutter/flutter/issues/82053
             theme: ThemeData(
               pageTransitionsTheme: const PageTransitionsTheme(
-                builders: <TargetPlatform, PageTransitionsBuilder>{
+                builders: {
                   TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
                   TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
                   TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),

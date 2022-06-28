@@ -29,7 +29,7 @@
 /build/
 
 # Android related
-**/android/**/gradle-wrapper.jar
+**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
 **/android/gradlew
@@ -69,6 +69,11 @@
 
 # Service account files
 svc-keyfile.json
+
+# Lockfiles
+Podfile.lock
+pubspec.lock
+yarn.lock
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3

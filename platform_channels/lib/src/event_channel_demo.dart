@@ -14,7 +14,7 @@ import 'package:platform_channels/src/accelerometer_event_channel.dart';
 /// [Text] widgets to display the value of [AccelerometerReadings.x],
 /// [AccelerometerReadings.y], and [AccelerometerReadings.z] respectively.
 class EventChannelDemo extends StatelessWidget {
-  const EventChannelDemo({Key? key}) : super(key: key);
+  const EventChannelDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,15 @@ class EventChannelDemo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'x axis: ' + snapshot.data!.x.toStringAsFixed(3),
+                    'x axis: ${snapshot.data!.x.toStringAsFixed(3)}',
                     style: textStyle,
                   ),
                   Text(
-                    'y axis: ' + snapshot.data!.y.toStringAsFixed(3),
+                    'y axis: ${snapshot.data!.y.toStringAsFixed(3)}',
                     style: textStyle,
                   ),
                   Text(
-                    'z axis: ' + snapshot.data!.z.toStringAsFixed(3),
+                    'z axis: ${snapshot.data!.z.toStringAsFixed(3)}',
                     style: textStyle,
                   )
                 ],

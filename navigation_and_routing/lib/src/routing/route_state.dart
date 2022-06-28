@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'parsed_route.dart';
@@ -36,13 +35,13 @@ class RouteState extends ChangeNotifier {
   }
 }
 
-/// Provides the current [RouteState] to descendent widgets in the tree.
+/// Provides the current [RouteState] to descendant widgets in the tree.
 class RouteStateScope extends InheritedNotifier<RouteState> {
   const RouteStateScope({
-    required RouteState notifier,
-    required Widget child,
-    Key? key,
-  }) : super(key: key, notifier: notifier, child: child);
+    required super.notifier,
+    required super.child,
+    super.key,
+  });
 
   static RouteState of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<RouteStateScope>()!.notifier!;

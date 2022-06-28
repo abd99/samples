@@ -13,10 +13,10 @@ void main() {
 // The same content is shown for both the main app target and in the App
 // Clip.
 class Demo extends StatefulWidget {
-  const Demo({Key key}) : super(key: key);
+  const Demo({super.key});
 
   @override
-  State<StatefulWidget> createState() => _DemoState();
+  State<Demo> createState() => _DemoState();
 }
 
 class _DemoState extends State<Demo> {
@@ -43,7 +43,7 @@ class _DemoState extends State<Demo> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
               Text(deviceInfo),
               const Padding(padding: EdgeInsets.only(top: 18)),
               const FlutterLogo(size: 128),

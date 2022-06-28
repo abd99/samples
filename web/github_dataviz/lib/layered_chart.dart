@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:github_dataviz/catmull.dart';
 import 'package:github_dataviz/constants.dart';
 import 'package:github_dataviz/data/data_series.dart';
@@ -19,12 +17,12 @@ class LayeredChart extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return LayeredChartState();
+  State<LayeredChart> createState() {
+    return _LayeredChartState();
   }
 }
 
-class LayeredChartState extends State<LayeredChart> {
+class _LayeredChartState extends State<LayeredChart> {
   late List<Path> paths;
   late List<Path> capPaths;
   late List<double> maxValues;
@@ -49,9 +47,9 @@ class LayeredChartState extends State<LayeredChart> {
     graphHeight = MathUtils.clampedMap(screenRatio, 0.5, 2.5, 50, 150);
 
     int m = dataToPlot.length;
-    paths = <Path>[];
-    capPaths = <Path>[];
-    maxValues = <double>[];
+    paths = [];
+    capPaths = [];
+    maxValues = [];
     for (int i = 0; i < m; i++) {
       int n = dataToPlot[i].series.length;
       maxValues.add(0);
@@ -71,11 +69,11 @@ class LayeredChartState extends State<LayeredChart> {
     double xWidth = (endX - startX) / numPoints;
     double capRangeX = capSize * cos(capTheta);
     double tanCapTheta = tan(capTheta);
-    List<double> curvePoints = <double>[];
+    final curvePoints = <double>[];
     for (int i = 0; i < m; i++) {
       List<int> series = dataToPlot[i].series;
       int n = series.length;
-      List<Point2D> controlPoints = <Point2D>[];
+      final controlPoints = <Point2D>[];
       controlPoints.add(Point2D(-1, 0));
       double last = 0;
       for (int j = 0; j < n; j++) {
@@ -135,7 +133,7 @@ class LayeredChartState extends State<LayeredChart> {
       capPaths[i].lineTo(startX, startY + 1);
       capPaths[i].close();
     }
-    labelPainter = <TextPainter>[];
+    labelPainter = [];
     for (int i = 0; i < dataToPlot.length; i++) {
       TextSpan span = TextSpan(
           style: const TextStyle(
@@ -148,7 +146,7 @@ class LayeredChartState extends State<LayeredChart> {
       tp.layout();
       labelPainter.add(tp);
     }
-    milestonePainter = <TextPainter>[];
+    milestonePainter = [];
     for (int i = 0; i < milestones.length; i++) {
       TextSpan span = TextSpan(
           style: const TextStyle(
@@ -169,13 +167,13 @@ class LayeredChartState extends State<LayeredChart> {
     return Container(
         color: Constants.backgroundColor,
         child: CustomPaint(
-            foregroundPainter: ChartPainter(this, widget.dataToPlot,
+            foregroundPainter: _ChartPainter(this, widget.dataToPlot,
                 widget.milestones, 80, 50, 50, 12, 500, widget.animationValue),
             child: Container()));
   }
 }
 
-class ChartPainter extends CustomPainter {
+class _ChartPainter extends CustomPainter {
   static List<Color?> colors = [
     Colors.red[900],
     const Color(0xffc4721a),
@@ -210,9 +208,9 @@ class ChartPainter extends CustomPainter {
   late Paint linePaint;
   late Paint fillPaint;
 
-  LayeredChartState state;
+  _LayeredChartState state;
 
-  ChartPainter(
+  _ChartPainter(
       this.state,
       this.dataToPlot,
       this.milestones,

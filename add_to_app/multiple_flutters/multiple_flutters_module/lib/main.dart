@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 void main() => runApp(const MyApp(color: Colors.blue));
 
@@ -14,7 +15,7 @@ void topMain() => runApp(const MyApp(color: Colors.green));
 void bottomMain() => runApp(const MyApp(color: Colors.purple));
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.color}) : super(key: key);
+  const MyApp({super.key, required this.color});
 
   final MaterialColor color;
 
@@ -31,11 +32,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -72,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -89,6 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 _channel.invokeMethod<void>("next", _counter);
               },
               child: const Text('Next'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // Use the url_launcher plugin to open the Flutter docs in
+                // a browser.
+                final url = Uri.parse('https://flutter.dev/docs');
+                if (await launcher.canLaunchUrl(url)) {
+                  await launcher.launchUrl(url);
+                }
+              },
+              child: const Text('Open Flutter Docs'),
             ),
           ],
         ),

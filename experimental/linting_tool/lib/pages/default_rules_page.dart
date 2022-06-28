@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:linting_tool/layout/adaptive.dart';
 import 'package:linting_tool/model/profile.dart';
 import 'package:linting_tool/widgets/lint_expansion_tile.dart';
@@ -12,14 +13,14 @@ class DefaultRulesPage extends StatelessWidget {
 
   const DefaultRulesPage({
     required this.profile,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final isDesktop = isDisplayLarge(context);
     final isTablet = isDisplayMedium(context);
-    var textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     final startPadding = isTablet
         ? 60.0
         : isDesktop
@@ -51,7 +52,7 @@ class DefaultRulesPage extends StatelessWidget {
         leadingWidth: 180.0,
         toolbarHeight: 38.0,
         backgroundColor: Colors.white,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: ListView.separated(
         padding: EdgeInsetsDirectional.only(

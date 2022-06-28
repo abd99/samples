@@ -10,7 +10,7 @@ import 'package:linting_tool/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class DefaultLintsPage extends StatelessWidget {
-  const DefaultLintsPage({Key? key}) : super(key: key);
+  const DefaultLintsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class DefaultLintsPage extends StatelessWidget {
           return const CircularProgressIndicator.adaptive();
         }
 
-        if (rulesStore.defaultProfiles.isNotEmpty) {
-          var defaultSets = rulesStore.defaultProfiles;
+        final defaultSets = rulesStore.defaultProfiles;
+        if (defaultSets.isNotEmpty) {
           final isDesktop = isDisplayLarge(context);
           final isTablet = isDisplayMedium(context);
           final startPadding = isTablet
@@ -45,7 +45,7 @@ class DefaultLintsPage extends StatelessWidget {
             cacheExtent: 5,
             itemCount: defaultSets.length,
             itemBuilder: (context, index) {
-              var profile = rulesStore.defaultProfiles[index];
+              final profile = defaultSets[index];
               return ListTile(
                 title: Text(
                   profile.name,

@@ -16,11 +16,11 @@ class TypewriterTween extends Tween<String> {
 }
 
 class CustomTweenDemo extends StatefulWidget {
-  const CustomTweenDemo({Key? key}) : super(key: key);
+  const CustomTweenDemo({super.key});
   static const String routeName = '/basics/custom_tweens';
 
   @override
-  _CustomTweenDemoState createState() => _CustomTweenDemoState();
+  State<CustomTweenDemo> createState() => _CustomTweenDemoState();
 }
 
 class _CustomTweenDemoState extends State<CustomTweenDemo>
@@ -51,11 +51,6 @@ class _CustomTweenDemoState extends State<CustomTweenDemo>
         title: const Text('Custom Tween'),
         actions: [
           MaterialButton(
-            child: Text(
-              controller.status == AnimationStatus.completed
-                  ? 'Delete Essay'
-                  : 'Write Essay',
-            ),
             textColor: Colors.white,
             onPressed: () {
               if (controller.status == AnimationStatus.completed) {
@@ -68,6 +63,11 @@ class _CustomTweenDemoState extends State<CustomTweenDemo>
                 });
               }
             },
+            child: Text(
+              controller.status == AnimationStatus.completed
+                  ? 'Delete Essay'
+                  : 'Write Essay',
+            ),
           ),
         ],
       ),

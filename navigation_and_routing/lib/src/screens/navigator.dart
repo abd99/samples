@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import '../auth.dart';
 import '../data.dart';
-import '../data/library.dart';
 import '../routing.dart';
 import '../screens/sign_in.dart';
 import '../widgets/fade_transition_page.dart';
@@ -22,18 +21,18 @@ class BookstoreNavigator extends StatefulWidget {
 
   const BookstoreNavigator({
     required this.navigatorKey,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _BookstoreNavigatorState createState() => _BookstoreNavigatorState();
+  State<BookstoreNavigator> createState() => _BookstoreNavigatorState();
 }
 
 class _BookstoreNavigatorState extends State<BookstoreNavigator> {
   final _signInKey = const ValueKey('Sign in');
-  final _scaffoldKey = const ValueKey<String>('App scaffold');
-  final _bookDetailsKey = const ValueKey<String>('Book details screen');
-  final _authorDetailsKey = const ValueKey<String>('Author details screen');
+  final _scaffoldKey = const ValueKey('App scaffold');
+  final _bookDetailsKey = const ValueKey('Book details screen');
+  final _authorDetailsKey = const ValueKey('Author details screen');
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +79,7 @@ class _BookstoreNavigatorState extends State<BookstoreNavigator> {
                 var signedIn = await authState.signIn(
                     credentials.username, credentials.password);
                 if (signedIn) {
-                  routeState.go('/books/popular');
+                  await routeState.go('/books/popular');
                 }
               },
             ),

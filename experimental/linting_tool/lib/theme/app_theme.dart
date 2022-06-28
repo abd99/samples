@@ -7,7 +7,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:linting_tool/theme/colors.dart';
 
-class AppTheme {
+abstract class AppTheme {
   static ThemeData buildReplyLightTheme(BuildContext context) {
     final base = ThemeData.light();
     return base.copyWith(
@@ -82,9 +82,7 @@ class AppTheme {
       ),
       colorScheme: const ColorScheme.dark(
         primary: AppColors.blue200,
-        primaryVariant: AppColors.blue300,
         secondary: AppColors.orange300,
-        secondaryVariant: AppColors.orange300,
         surface: AppColors.black800,
         error: AppColors.red200,
         onPrimary: AppColors.black900,

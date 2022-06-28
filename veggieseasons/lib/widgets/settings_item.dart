@@ -16,7 +16,7 @@ import 'package:veggieseasons/styles.dart';
 typedef SettingsItemCallback = FutureOr<void> Function();
 
 class SettingsNavigationIndicator extends StatelessWidget {
-  const SettingsNavigationIndicator({Key? key}) : super(key: key);
+  const SettingsNavigationIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class SettingsIcon extends StatelessWidget {
     required this.icon,
     this.foregroundColor = CupertinoColors.white,
     this.backgroundColor = CupertinoColors.black,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Color backgroundColor;
   final Color foregroundColor;
@@ -65,8 +65,8 @@ class SettingsItem extends StatefulWidget {
     this.content,
     this.subtitle,
     this.onPress,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String label;
   final Widget? icon;
@@ -75,10 +75,10 @@ class SettingsItem extends StatefulWidget {
   final SettingsItemCallback? onPress;
 
   @override
-  State<StatefulWidget> createState() => SettingsItemState();
+  State<SettingsItem> createState() => _SettingsItemState();
 }
 
-class SettingsItemState extends State<SettingsItem> {
+class _SettingsItemState extends State<SettingsItem> {
   bool pressed = false;
 
   @override
@@ -130,7 +130,7 @@ class SettingsItemState extends State<SettingsItem> {
                   child: widget.subtitle != null
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                          children: [
                             const SizedBox(height: 8.5),
                             Text(widget.label,
                                 style: themeData.textTheme.textStyle),

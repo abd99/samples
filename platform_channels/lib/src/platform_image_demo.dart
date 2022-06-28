@@ -13,10 +13,10 @@ import 'package:platform_channels/src/image_basic_message_channel.dart';
 /// The widget uses [Image.memory] to display the image obtained from the
 /// platform.
 class PlatformImageDemo extends StatefulWidget {
-  const PlatformImageDemo({Key? key}) : super(key: key);
+  const PlatformImageDemo({super.key});
 
   @override
-  _PlatformImageDemoState createState() => _PlatformImageDemoState();
+  State<PlatformImageDemo> createState() => _PlatformImageDemoState();
 }
 
 class _PlatformImageDemoState extends State<PlatformImageDemo> {

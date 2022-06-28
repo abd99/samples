@@ -6,11 +6,11 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class CurvedAnimationDemo extends StatefulWidget {
-  const CurvedAnimationDemo({Key? key}) : super(key: key);
+  const CurvedAnimationDemo({super.key});
   static const String routeName = '/misc/curved_animation';
 
   @override
-  _CurvedAnimationDemoState createState() => _CurvedAnimationDemoState();
+  State<CurvedAnimationDemo> createState() => _CurvedAnimationDemoState();
 }
 
 class CurveChoice {

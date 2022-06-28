@@ -2,8 +2,9 @@
 //    https://pub.dev/packages/simple_animations
 
 import 'dart:math';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 
 /// Widget to easily create a continuous animation.
 ///
@@ -22,25 +23,25 @@ import 'package:flutter/scheduler.dart';
 /// [startTimeSimulationTicks] property.)
 class Rendering extends StatefulWidget {
   final Widget Function(BuildContext context, Duration timeElapsed) builder;
-  final Function(Duration timeElapsed) onTick;
+  final Function(Duration timeElapsed)? onTick;
   final Duration startTime;
   final int startTimeSimulationTicks;
 
-  Rendering(
-      {this.builder,
+  const Rendering(
+      {required this.builder,
       this.onTick,
       this.startTime = Duration.zero,
-      this.startTimeSimulationTicks = 20})
-      : assert(builder != null, "Builder needs to defined.");
+      this.startTimeSimulationTicks = 20,
+      super.key});
 
   @override
-  _RenderingState createState() => _RenderingState();
+  State<Rendering> createState() => _RenderingState();
 }
 
 class _RenderingState extends State<Rendering>
     with SingleTickerProviderStateMixin {
-  Ticker _ticker;
-  Duration _timeElapsed = Duration(milliseconds: 0);
+  late Ticker _ticker;
+  Duration _timeElapsed = const Duration(milliseconds: 0);
 
   @override
   void initState() {
@@ -57,7 +58,7 @@ class _RenderingState extends State<Rendering>
 
   void _onRender(Duration effectiveElapsed) {
     if (widget.onTick != null) {
-      widget.onTick(effectiveElapsed);
+      widget.onTick!(effectiveElapsed);
     }
     setState(() {
       _timeElapsed = effectiveElapsed;
@@ -66,14 +67,14 @@ class _RenderingState extends State<Rendering>
 
   void _simulateStartTimeTicks() {
     if (widget.onTick != null) {
-      Iterable.generate(widget.startTimeSimulationTicks + 1).forEach((i) {
+      for (var i in Iterable.generate(widget.startTimeSimulationTicks + 1)) {
         final simulatedTime = Duration(
             milliseconds: (widget.startTime.inMilliseconds *
                     i /
                     widget.startTimeSimulationTicks)
                 .round());
-        widget.onTick(simulatedTime);
-      });
+        widget.onTick!(simulatedTime);
+      }
     }
   }
 
@@ -116,29 +117,28 @@ class _RenderingState extends State<Rendering>
 ///   );
 /// ```
 class MultiTrackTween extends Animatable<Map<String, dynamic>> {
-  final _tracksToTween = Map<String, _TweenData>();
+  final _tracksToTween = <String, _TweenData>{};
   var _maxDuration = 0;
 
   MultiTrackTween(List<Track> tracks)
-      : assert(tracks != null && tracks.length > 0,
-            "Add a List<Track> to configure the tween."),
-        assert(tracks.where((track) => track.items.length == 0).length == 0,
+      : assert(tracks.isNotEmpty, "Add a List<Track> to configure the tween."),
+        assert(tracks.where((track) => track.items.isEmpty).isEmpty,
             "Each Track needs at least one added Tween by using the add()-method.") {
     _computeMaxDuration(tracks);
     _computeTrackTweens(tracks);
   }
 
   void _computeMaxDuration(List<Track> tracks) {
-    tracks.forEach((track) {
+    for (var track in tracks) {
       final trackDuration = track.items
           .map((item) => item.duration.inMilliseconds)
           .reduce((sum, item) => sum + item);
       _maxDuration = max(_maxDuration, trackDuration);
-    });
+    }
   }
 
   void _computeTrackTweens(List<Track> tracks) {
-    tracks.forEach((track) {
+    for (var track in tracks) {
       final trackDuration = track.items
           .map((item) => item.duration.inMilliseconds)
           .reduce((sum, item) => sum + item);
@@ -159,7 +159,7 @@ class MultiTrackTween extends Animatable<Map<String, dynamic>> {
 
       _tracksToTween[track.name] =
           _TweenData(tween: sequence, maxTime: trackDuration / _maxDuration);
-    });
+    }
   }
 
   /// Returns the highest duration specified by [Track]s.
@@ -186,10 +186,10 @@ class MultiTrackTween extends Animatable<Map<String, dynamic>> {
 
   @override
   Map<String, dynamic> transform(double t) {
-    final Map<String, dynamic> result = Map();
+    final Map<String, dynamic> result = {};
     _tracksToTween.forEach((name, tweenData) {
-      final double tTween = max(0, min(t, tweenData.maxTime - 0.0001));
-      result[name] = tweenData.tween.transform(tTween);
+      final double tTween = max(0, min(t, tweenData.maxTime! - 0.0001));
+      result[name] = tweenData.tween!.transform(tTween);
     });
     return result;
   }
@@ -198,9 +198,9 @@ class MultiTrackTween extends Animatable<Map<String, dynamic>> {
 /// Single property to tween. Used by [MultiTrackTween].
 class Track<T> {
   final String name;
-  final List<_TrackItem> items = [];
+  final List<TrackItem> items = [];
 
-  Track(this.name) : assert(name != null, "Track name must not be null.");
+  Track(this.name);
 
   /// Adds a "piece of animation" to a [Track].
   ///
@@ -209,30 +209,28 @@ class Track<T> {
   ///
   /// Optionally you can set a named parameter [curve] that applies an easing
   /// curve to the tween.
-  Track<T> add(Duration duration, Animatable<T> tween, {Curve curve}) {
-    items.add(_TrackItem(duration, tween, curve: curve));
+  Track<T> add(Duration duration, Animatable<T> tween, {Curve? curve}) {
+    items.add(TrackItem(duration, tween, curve: curve));
     return this;
   }
 }
 
-class _TrackItem<T> {
+class TrackItem<T> {
   final Duration duration;
-  Animatable<T> tween;
+  late Animatable<T> tween;
 
-  _TrackItem(this.duration, Animatable<T> _tween, {Curve curve})
-      : assert(duration != null, "Please set a duration."),
-        assert(_tween != null, "Please set a tween.") {
+  TrackItem(this.duration, Animatable<T> tween, {Curve? curve}) {
     if (curve != null) {
-      tween = _tween.chain(CurveTween(curve: curve));
+      this.tween = tween.chain(CurveTween(curve: curve));
     } else {
-      tween = _tween;
+      this.tween = tween;
     }
   }
 }
 
 class _TweenData<T> {
-  final Animatable<T> tween;
-  final double maxTime;
+  final Animatable<T>? tween;
+  final double? maxTime;
 
   _TweenData({this.tween, this.maxTime});
 }
@@ -305,31 +303,27 @@ class ControlledAnimation<T> extends StatefulWidget {
   final Animatable<T> tween;
   final Curve curve;
   final Duration duration;
-  final Duration delay;
-  final Widget Function(BuildContext buildContext, T animatedValue) builder;
-  final Widget Function(BuildContext, Widget child, T animatedValue)
+  final Duration? delay;
+  final Widget Function(BuildContext buildContext, T animatedValue)? builder;
+  final Widget Function(BuildContext, Widget? child, T animatedValue)?
       builderWithChild;
-  final Widget child;
-  final AnimationStatusListener animationControllerStatusListener;
+  final Widget? child;
+  final AnimationStatusListener? animationControllerStatusListener;
   final double startPosition;
 
-  ControlledAnimation(
+  const ControlledAnimation(
       {this.playback = Playback.PLAY_FORWARD,
-      this.tween,
+      required this.tween,
       this.curve = Curves.linear,
-      this.duration,
+      required this.duration,
       this.delay,
       this.builder,
       this.builderWithChild,
       this.child,
       this.animationControllerStatusListener,
       this.startPosition = 0.0,
-      Key key})
-      : assert(duration != null,
-            "Please set property duration. Example: Duration(milliseconds: 500)"),
-        assert(tween != null,
-            "Please set property tween. Example: Tween(from: 0.0, to: 100.0)"),
-        assert(
+      super.key})
+      : assert(
             (builderWithChild != null && child != null && builder == null) ||
                 (builder != null && builderWithChild == null && child == null),
             "Either use just builder and keep buildWithChild and child null. "
@@ -337,17 +331,16 @@ class ControlledAnimation<T> extends StatefulWidget {
         assert(
             startPosition >= 0 && startPosition <= 1,
             "The property startPosition "
-            "must have a value between 0.0 and 1.0."),
-        super(key: key);
+            "must have a value between 0.0 and 1.0.");
 
   @override
-  _ControlledAnimationState<T> createState() => _ControlledAnimationState<T>();
+  State<ControlledAnimation> createState() => _ControlledAnimationState<T>();
 }
 
 class _ControlledAnimationState<T> extends State<ControlledAnimation>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<T> _animation;
+  late AnimationController _controller;
+  late Animation<T?> _animation;
   bool _isDisposed = false;
   bool _waitForDelay = true;
   bool _isCurrentlyMirroring = false;
@@ -362,22 +355,22 @@ class _ControlledAnimationState<T> extends State<ControlledAnimation>
 
     _animation = widget.tween
         .chain(CurveTween(curve: widget.curve))
-        .animate(_controller);
+        .animate(_controller) as Animation<T?>;
 
     if (widget.animationControllerStatusListener != null) {
-      _controller.addStatusListener(widget.animationControllerStatusListener);
+      _controller.addStatusListener(widget.animationControllerStatusListener!);
     }
 
     initialize();
     super.initState();
   }
 
-  void initialize() async {
+  Future<void> initialize() async {
     if (widget.delay != null) {
-      await Future.delayed(widget.delay);
+      await Future.delayed(widget.delay!);
     }
     _waitForDelay = false;
-    executeInstruction();
+    await executeInstruction();
   }
 
   @override
@@ -387,7 +380,7 @@ class _ControlledAnimationState<T> extends State<ControlledAnimation>
     super.didUpdateWidget(oldWidget);
   }
 
-  void executeInstruction() async {
+  Future<void> executeInstruction() async {
     if (_isDisposed || _waitForDelay) {
       return;
     }
@@ -396,23 +389,23 @@ class _ControlledAnimationState<T> extends State<ControlledAnimation>
       _controller.stop();
     }
     if (widget.playback == Playback.PLAY_FORWARD) {
-      _controller.forward();
+      await _controller.forward();
     }
     if (widget.playback == Playback.PLAY_REVERSE) {
-      _controller.reverse();
+      await _controller.reverse();
     }
     if (widget.playback == Playback.START_OVER_FORWARD) {
-      _controller.forward(from: 0.0);
+      await _controller.forward(from: 0.0);
     }
     if (widget.playback == Playback.START_OVER_REVERSE) {
-      _controller.reverse(from: 1.0);
+      await _controller.reverse(from: 1.0);
     }
     if (widget.playback == Playback.LOOP) {
-      _controller.repeat();
+      await _controller.repeat();
     }
     if (widget.playback == Playback.MIRROR && !_isCurrentlyMirroring) {
       _isCurrentlyMirroring = true;
-      _controller.repeat(reverse: true);
+      await _controller.repeat(reverse: true);
     }
 
     if (widget.playback != Playback.MIRROR) {
@@ -423,9 +416,9 @@ class _ControlledAnimationState<T> extends State<ControlledAnimation>
   @override
   Widget build(BuildContext context) {
     if (widget.builder != null) {
-      return widget.builder(context, _animation.value);
+      return widget.builder!(context, _animation.value);
     } else if (widget.builderWithChild != null && widget.child != null) {
-      return widget.builderWithChild(context, widget.child, _animation.value);
+      return widget.builderWithChild!(context, widget.child, _animation.value);
     }
     _controller.stop(canceled: true);
     throw FlutterError(
@@ -452,10 +445,7 @@ class AnimationProgress {
   final Duration startTime;
 
   /// Creates an [AnimationProgress].
-  AnimationProgress({this.duration, this.startTime})
-      : assert(duration != null, "Please specify an animation duration."),
-        assert(
-            startTime != null, "Please specify a start time of the animation.");
+  AnimationProgress({required this.duration, required this.startTime});
 
   /// Queries the current progress value based on the specified [startTime] and
   /// [duration] as a value between `0.0` and `1.0`. It will automatically

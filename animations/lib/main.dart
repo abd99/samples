@@ -2,7 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:window_size/window_size.dart';
 
 import 'src/basics/01_animated_container.dart';
 import 'src/basics/02_page_route_builder.dart';
@@ -24,7 +29,29 @@ import 'src/misc/hero_animation.dart';
 import 'src/misc/physics_card_drag.dart';
 import 'src/misc/repeating_animation.dart';
 
-void main() => runApp(const AnimationSamples());
+void main() {
+  setupWindow();
+  runApp(const AnimationSamples());
+}
+
+const double windowWidth = 480;
+const double windowHeight = 854;
+
+void setupWindow() {
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    WidgetsFlutterBinding.ensureInitialized();
+    setWindowTitle('Animation Samples');
+    setWindowMinSize(const Size(windowWidth, windowHeight));
+    setWindowMaxSize(const Size(windowWidth, windowHeight));
+    getCurrentScreen().then((screen) {
+      setWindowFrame(Rect.fromCenter(
+        center: screen!.frame.center,
+        width: windowWidth,
+        height: windowHeight,
+      ));
+    });
+  }
+}
 
 class Demo {
   final String name;
@@ -132,7 +159,7 @@ final allRoutes = <String, WidgetBuilder>{
 };
 
 class AnimationSamples extends StatelessWidget {
-  const AnimationSamples({Key? key}) : super(key: key);
+  const AnimationSamples({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +175,7 @@ class AnimationSamples extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +199,7 @@ class HomePage extends StatelessWidget {
 class DemoTile extends StatelessWidget {
   final Demo demo;
 
-  const DemoTile({required this.demo, Key? key}) : super(key: key);
+  const DemoTile({required this.demo, super.key});
 
   @override
   Widget build(BuildContext context) {

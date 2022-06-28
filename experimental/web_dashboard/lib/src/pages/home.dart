@@ -16,11 +16,11 @@ class HomePage extends StatefulWidget {
 
   const HomePage({
     required this.onSignOut,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {

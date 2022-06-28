@@ -4,6 +4,7 @@
 
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:linting_tool/layout/adaptive.dart';
 import 'package:linting_tool/model/editing_controller.dart';
 import 'package:linting_tool/model/profiles_store.dart';
@@ -15,14 +16,14 @@ class RulesPage extends StatelessWidget {
 
   const RulesPage({
     required this.selectedProfileIndex,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final isDesktop = isDisplayLarge(context);
     final isTablet = isDisplayMedium(context);
-    var textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     final startPadding = isTablet
         ? 60.0
         : isDesktop
@@ -57,7 +58,7 @@ class RulesPage extends StatelessWidget {
         leadingWidth: 180.0,
         toolbarHeight: 38.0,
         backgroundColor: Colors.white,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
 
       /// ContextMenuOverlay is required to show
@@ -84,7 +85,7 @@ class RulesPage extends StatelessWidget {
                           itemCount: profile.rules.length,
                           cacheExtent: 5,
                           itemBuilder: (context, index) {
-                            /// Show righ-click context menu to delete rule.
+                            /// Show right-click context menu to delete rule.
                             return ContextMenuRegion(
                               contextMenu: GenericContextMenu(
                                 buttonConfigs: [

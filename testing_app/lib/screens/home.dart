@@ -8,16 +8,16 @@ import 'package:testing_app/models/favorites.dart';
 import 'package:testing_app/screens/favorites.dart';
 
 class HomePage extends StatelessWidget {
-  static String routeName = '/';
+  static const routeName = '/';
 
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Testing Sample'),
-        actions: <Widget>[
+        actions: [
           TextButton.icon(
             style: TextButton.styleFrom(primary: Colors.white),
             onPressed: () {
@@ -42,11 +42,11 @@ class HomePage extends StatelessWidget {
 class ItemTile extends StatelessWidget {
   final int itemNo;
 
-  const ItemTile(this.itemNo, {Key? key}) : super(key: key);
+  const ItemTile(this.itemNo, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var favoritesList = Provider.of<Favorites>(context);
+    final favoritesList = context.watch<Favorites>();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

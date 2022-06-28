@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 class MyLogin extends StatelessWidget {
-  const MyLogin({Key? key}) : super(key: key);
+  const MyLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,13 @@ class MyLogin extends StatelessWidget {
                 height: 24,
               ),
               ElevatedButton(
-                child: const Text('ENTER'),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/catalog');
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.yellow,
                 ),
+                child: const Text('ENTER'),
               )
             ],
           ),

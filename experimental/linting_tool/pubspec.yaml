@@ -3,46 +3,45 @@ description: A new Flutter project.
 
 version: 0.0.2+2
 
-publish_to: 'none'
+publish_to: "none"
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0-0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  adaptive_breakpoints: ^0.0.4
+  adaptive_breakpoints: ^0.1.1
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
   file_selector: ^0.8.2
   file_selector_linux: ^0.0.2+1
-  file_selector_macos: ^0.0.4+1
+  file_selector_macos: ^0.8.2
   file_selector_web: ^0.8.1+1
-  file_selector_windows: ^0.0.2+1
+  file_selector_windows: ^0.8.2
   flutter_markdown: ^0.6.2
-  google_fonts: ^2.1.0
+  google_fonts: ^3.0.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   http: ^0.13.3
-  json2yaml: ^2.0.0
-  json_annotation: ^4.0.1
+  json2yaml: ^3.0.0
+  json_annotation: ^4.5.0
   mockito: ^5.0.13
-  provider: ^5.0.0
+  provider: ^6.0.2
   yaml: ^3.1.0
-  context_menus: ^0.1.0+5
+  context_menus: ^1.0.1
   window_size:
     git:
-      url: git://github.com/google/flutter-desktop-embedding.git
+      url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
-      ref: e48abe7c3e9ebfe0b81622167c5201d4e783bb81
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.0.6
-  flutter_lints: ^1.0.3
+  flutter_lints: ^2.0.1
   hive_generator: ^1.1.0
-  json_serializable: ^4.1.4
+  json_serializable: ^6.2.0
 
 flutter:
   uses-material-design: true

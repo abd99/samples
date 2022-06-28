@@ -3,14 +3,13 @@
 // found in the LICENSE file.
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:veggieseasons/screens/favorites.dart';
 import 'package:veggieseasons/screens/list.dart';
 import 'package:veggieseasons/screens/search.dart';
 import 'package:veggieseasons/screens/settings.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key, this.restorationId}) : super(key: key);
+  const HomeScreen({super.key, this.restorationId});
 
   final String? restorationId;
 

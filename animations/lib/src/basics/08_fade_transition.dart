@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 // Refer to the AnimatedWidget docs here - https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html
 // for examples of other common animated widgets.
 class FadeTransitionDemo extends StatefulWidget {
-  const FadeTransitionDemo({Key? key}) : super(key: key);
+  const FadeTransitionDemo({super.key});
   static const String routeName = '/basics/fade_transition';
 
   @override
-  _FadeTransitionDemoState createState() => _FadeTransitionDemoState();
+  State<FadeTransitionDemo> createState() => _FadeTransitionDemoState();
 }
 
 class _FadeTransitionDemoState extends State<FadeTransitionDemo>
@@ -53,7 +53,7 @@ class _FadeTransitionDemoState extends State<FadeTransitionDemo>
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             FadeTransition(
               opacity: _animation,
               child: const Icon(

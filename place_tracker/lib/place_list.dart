@@ -10,13 +10,13 @@ import 'place_details.dart';
 import 'place_tracker_app.dart';
 
 class PlaceList extends StatefulWidget {
-  const PlaceList({Key? key}) : super(key: key);
+  const PlaceList({super.key});
 
   @override
-  PlaceListState createState() => PlaceListState();
+  State<PlaceList> createState() => _PlaceListState();
 }
 
-class PlaceListState extends State<PlaceList> {
+class _PlaceListState extends State<PlaceList> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -69,24 +69,23 @@ class _CategoryButton extends StatelessWidget {
   final bool selected;
   final ValueChanged<PlaceCategory> onCategoryChanged;
   const _CategoryButton({
-    Key? key,
     required this.category,
     required this.selected,
     required this.onCategoryChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    late String _buttonText;
+    late String buttonText;
     switch (category) {
       case PlaceCategory.favorite:
-        _buttonText = 'Favorites';
+        buttonText = 'Favorites';
         break;
       case PlaceCategory.visited:
-        _buttonText = 'Visited';
+        buttonText = 'Visited';
         break;
       case PlaceCategory.wantToGo:
-        _buttonText = 'Want To Go';
+        buttonText = 'Want To Go';
     }
 
     return Container(
@@ -102,7 +101,7 @@ class _CategoryButton extends StatelessWidget {
         height: 50.0,
         child: TextButton(
           child: Text(
-            _buttonText,
+            buttonText,
             style: TextStyle(
               fontSize: selected ? 20.0 : 18.0,
               color: selected ? Colors.blue : Colors.black87,
@@ -120,10 +119,9 @@ class _ListCategoryButtonBar extends StatelessWidget {
 
   final ValueChanged<PlaceCategory> onCategoryChanged;
   const _ListCategoryButtonBar({
-    Key? key,
     required this.selectedCategory,
     required this.onCategoryChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -155,10 +153,9 @@ class _PlaceListTile extends StatelessWidget {
 
   final ValueChanged<Place> onPlaceChanged;
   const _PlaceListTile({
-    Key? key,
     required this.place,
     required this.onPlaceChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

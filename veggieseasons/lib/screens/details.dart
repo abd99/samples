@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:veggieseasons/data/app_state.dart';
 import 'package:veggieseasons/data/preferences.dart';
@@ -13,7 +12,7 @@ import 'package:veggieseasons/widgets/close_button.dart';
 import 'package:veggieseasons/widgets/trivia.dart';
 
 class ServingInfoChart extends StatelessWidget {
-  const ServingInfoChart(this.veggie, this.prefs, {Key? key}) : super(key: key);
+  const ServingInfoChart(this.veggie, this.prefs, {super.key});
 
   final Veggie veggie;
 
@@ -158,7 +157,7 @@ class ServingInfoChart extends StatelessWidget {
 class InfoView extends StatelessWidget {
   final int? id;
 
-  const InfoView(this.id, {Key? key}) : super(key: key);
+  const InfoView(this.id, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +173,7 @@ class InfoView extends StatelessWidget {
         children: [
           Row(
             mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
+            children: [
               FutureBuilder<Set<VeggieCategory>>(
                 future: prefs.preferredCategories,
                 builder: (context, snapshot) {
@@ -239,8 +238,7 @@ class DetailsScreen extends StatefulWidget {
   final int? id;
   final String? restorationId;
 
-  const DetailsScreen({this.id, this.restorationId, Key? key})
-      : super(key: key);
+  const DetailsScreen({this.id, this.restorationId, super.key});
 
   static String show(NavigatorState navigator, int veggieId) {
     return navigator.restorablePush<void>(_routeBuilder, arguments: veggieId);
@@ -256,7 +254,7 @@ class DetailsScreen extends StatefulWidget {
   }
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState();
+  State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> with RestorationMixin {

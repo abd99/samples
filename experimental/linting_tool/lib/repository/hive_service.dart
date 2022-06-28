@@ -10,10 +10,10 @@ class HiveService {
       boxName,
     );
 
-    List<T> existingProducts = await getBoxes(boxName);
+    final List<T> existingProducts = await getBoxes(boxName);
 
     if (!existingProducts.contains(item)) {
-      openBox.add(item);
+      await openBox.add(item);
       return true;
     }
     return false;
@@ -24,11 +24,11 @@ class HiveService {
       boxName,
     );
 
-    List<T> existingProducts = await getBoxes(boxName);
+    final Set<T> existingProducts = Set.unmodifiable(await getBoxes(boxName));
 
-    for (var item in items) {
+    for (final item in items) {
       if (!existingProducts.contains(item)) {
-        openBox.add(item);
+        await openBox.add(item);
       }
     }
   }
@@ -38,11 +38,11 @@ class HiveService {
       boxName,
     );
 
-    List<T> boxes = await getBoxes(boxName);
+    final List<T> boxes = await getBoxes(boxName);
 
-    for (var box in boxes) {
+    for (final box in boxes) {
       if (box == item) {
-        openBox.deleteAt(boxes.indexOf(item));
+        await openBox.deleteAt(boxes.indexOf(item));
       }
     }
   }
@@ -52,25 +52,23 @@ class HiveService {
       boxName,
     );
 
-    List<T> boxes = await getBoxes(boxName);
+    final List<T> boxes = await getBoxes(boxName);
 
-    for (var box in boxes) {
+    for (final box in boxes) {
       if (box == item) {
-        openBox.putAt(boxes.indexOf(item), newItem);
+        await openBox.putAt(boxes.indexOf(item), newItem);
       }
     }
   }
 
   static Future<List<T>> getBoxes<T>(String boxName, [String? query]) async {
-    List<T> boxList = [];
-
     final openBox = await Hive.openLazyBox<T>(boxName);
 
-    int length = openBox.length;
+    final length = openBox.length;
 
-    for (int i = 0; i < length; i++) {
-      boxList.add(await openBox.getAt(i) as T);
-    }
+    final boxList = <T>[
+      for (int i = 0; i < length; i++) await openBox.getAt(i) as T
+    ];
 
     return boxList;
   }

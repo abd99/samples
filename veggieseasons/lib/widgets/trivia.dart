@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:veggieseasons/data/app_state.dart';
 import 'package:veggieseasons/data/veggie.dart';
@@ -11,10 +10,10 @@ class TriviaView extends StatefulWidget {
   final int? id;
   final String? restorationId;
 
-  const TriviaView({this.id, this.restorationId, Key? key}) : super(key: key);
+  const TriviaView({this.id, this.restorationId, super.key});
 
   @override
-  _TriviaViewState createState() => _TriviaViewState();
+  State<TriviaView> createState() => _TriviaViewState();
 }
 
 /// Possible states of the game.

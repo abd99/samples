@@ -3,14 +3,13 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AnimatedListDemo extends StatefulWidget {
-  const AnimatedListDemo({Key? key}) : super(key: key);
+  const AnimatedListDemo({super.key});
   static String routeName = '/misc/animated_list';
 
   @override
-  _AnimatedListDemoState createState() => _AnimatedListDemoState();
+  State<AnimatedListDemo> createState() => _AnimatedListDemoState();
 }
 
 class _AnimatedListDemoState extends State<AnimatedListDemo> {
@@ -78,7 +77,7 @@ class _AnimatedListDemoState extends State<AnimatedListDemo> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AnimatedList'),
-        actions: <Widget>[
+        actions: [
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: addUser,

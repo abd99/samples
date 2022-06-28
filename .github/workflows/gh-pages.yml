@@ -1,20 +1,27 @@
 name: Deploy to GitHub Pages
+
+# Declare default permissions as read only.
+permissions: read-all
+
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build-and-deploy:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
+    if: github.repository == 'flutter/samples'
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@d171c3b028d844f2bf14e9fdec0c58114451e4bf
         with:
           submodules: true
           fetch-depth: 0
 
-      - uses: subosito/flutter-action@4389e6cbc6cb8a4b18c628ff96ff90be0e926aa8
+      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf
 
       - name: Init scripts
         run: dart pub get

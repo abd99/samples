@@ -5,11 +5,11 @@
 import 'package:flutter/material.dart';
 
 class AnimatedBuilderDemo extends StatefulWidget {
-  const AnimatedBuilderDemo({Key? key}) : super(key: key);
+  const AnimatedBuilderDemo({super.key});
   static const String routeName = '/basics/animated_builder';
 
   @override
-  _AnimatedBuilderDemoState createState() => _AnimatedBuilderDemoState();
+  State<AnimatedBuilderDemo> createState() => _AnimatedBuilderDemoState();
 }
 
 class _AnimatedBuilderDemoState extends State<AnimatedBuilderDemo>

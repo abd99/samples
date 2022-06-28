@@ -5,7 +5,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:linting_tool/layout/adaptive.dart';
 import 'package:linting_tool/pages/default_lints_page.dart';
 import 'package:linting_tool/pages/home_page.dart';
@@ -15,17 +15,17 @@ import 'package:linting_tool/theme/colors.dart';
 final navKey = GlobalKey<NavigatorState>();
 
 class AdaptiveNav extends StatefulWidget {
-  const AdaptiveNav({Key? key}) : super(key: key);
+  const AdaptiveNav({super.key});
 
   @override
-  _AdaptiveNavState createState() => _AdaptiveNavState();
+  State<AdaptiveNav> createState() => _AdaptiveNavState();
 }
 
 class _AdaptiveNavState extends State<AdaptiveNav> {
   @override
   Widget build(BuildContext context) {
     final isDesktop = isDisplayLarge(context);
-    const _navigationDestinations = <_Destination>[
+    const navigationDestinations = <_Destination>[
       _Destination(
         textLabel: 'Home',
         icon: Icons.home_outlined,
@@ -46,42 +46,41 @@ class _AdaptiveNavState extends State<AdaptiveNav> {
       ),
     ];
 
-    final _trailing = <String, IconData>{
+    const trailing = <String, IconData>{
       'About': Icons.info_outline,
     };
 
     return _NavView(
       extended: isDesktop,
-      destinations: _navigationDestinations,
-      trailing: _trailing,
+      destinations: navigationDestinations,
+      trailing: trailing,
     );
   }
 }
 
 class _NavView extends StatefulWidget {
   const _NavView({
-    Key? key,
     required this.extended,
     required this.destinations,
-    this.trailing,
-  }) : super(key: key);
+    this.trailing = const {},
+  });
 
   final bool extended;
   final List<_Destination> destinations;
-  final Map<String, IconData>? trailing;
+  final Map<String, IconData> trailing;
 
   @override
   _NavViewState createState() => _NavViewState();
 }
 
 class _NavViewState extends State<_NavView> {
-  late ValueNotifier<bool?> _isExtended;
+  late final ValueNotifier<bool> _isExtended;
   var _selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _isExtended = ValueNotifier<bool?>(widget.extended);
+    _isExtended = ValueNotifier<bool>(widget.extended);
   }
 
   void _onDestinationSelected(int index) {
@@ -92,7 +91,7 @@ class _NavViewState extends State<_NavView> {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -103,7 +102,7 @@ class _NavViewState extends State<_NavView> {
         ),
         toolbarHeight: 38.0,
         backgroundColor: Colors.white,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Row(
         children: [
@@ -116,7 +115,7 @@ class _NavViewState extends State<_NavView> {
                     minHeight: constraints.maxHeight,
                   ),
                   child: IntrinsicHeight(
-                    child: ValueListenableBuilder<bool?>(
+                    child: ValueListenableBuilder<bool>(
                       valueListenable: _isExtended,
                       builder: (context, value, child) {
                         var isSmallDisplay = isDisplaySmall(context);
@@ -131,13 +130,13 @@ class _NavViewState extends State<_NavView> {
                                 label: Text(destination.textLabel),
                               ),
                           ],
-                          extended: _isExtended.value! && !isSmallDisplay,
+                          extended: _isExtended.value && !isSmallDisplay,
                           labelType: NavigationRailLabelType.none,
                           leading: _NavigationRailHeader(
                             extended: _isExtended,
                           ),
                           trailing: _NavigationRailTrailingSection(
-                            trailingDestinations: widget.trailing!,
+                            trailingDestinations: widget.trailing,
                           ),
                           selectedIndex: _selectedIndex,
                           onDestinationSelected: _onDestinationSelected,

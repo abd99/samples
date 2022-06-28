@@ -10,11 +10,11 @@ import '../widgets/book_list.dart';
 
 class BooksScreen extends StatefulWidget {
   const BooksScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _BooksScreenState createState() => _BooksScreenState();
+  State<BooksScreen> createState() => _BooksScreenState();
 }
 
 class _BooksScreenState extends State<BooksScreen>

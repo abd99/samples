@@ -2,9 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'place.dart';
@@ -17,14 +15,14 @@ class PlaceDetails extends StatefulWidget {
   const PlaceDetails({
     required this.place,
     required this.onChanged,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  PlaceDetailsState createState() => PlaceDetailsState();
+  State<PlaceDetails> createState() => _PlaceDetailsState();
 }
 
-class PlaceDetailsState extends State<PlaceDetails> {
+class _PlaceDetailsState extends State<PlaceDetails> {
   late Place _place;
   GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
@@ -124,8 +122,7 @@ class _DescriptionTextField extends StatelessWidget {
   const _DescriptionTextField({
     required this.controller,
     required this.onChanged,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -159,8 +156,7 @@ class _Map extends StatelessWidget {
     required this.mapController,
     required this.onMapCreated,
     required this.markers,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -194,8 +190,7 @@ class _NameTextField extends StatelessWidget {
   const _NameTextField({
     required this.controller,
     required this.onChanged,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -218,9 +213,7 @@ class _NameTextField extends StatelessWidget {
 }
 
 class _Reviews extends StatelessWidget {
-  const _Reviews({
-    Key? key,
-  }) : super(key: key);
+  const _Reviews();
 
   @override
   Widget build(BuildContext context) {
@@ -314,9 +307,7 @@ class _StarBar extends StatelessWidget {
   const _StarBar({
     required this.rating,
     required this.onChanged,
-    Key? key,
-  })  : assert(rating >= 0 && rating <= maxStars),
-        super(key: key);
+  }) : assert(rating >= 0 && rating <= maxStars);
 
   @override
   Widget build(BuildContext context) {

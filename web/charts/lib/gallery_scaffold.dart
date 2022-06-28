@@ -43,7 +43,7 @@ class GalleryScaffold extends StatefulWidget {
       });
 
   @override
-  _GalleryScaffoldState createState() => _GalleryScaffoldState();
+  State<GalleryScaffold> createState() => _GalleryScaffoldState();
 }
 
 class _GalleryScaffoldState extends State<GalleryScaffold> {
@@ -57,11 +57,11 @@ class _GalleryScaffoldState extends State<GalleryScaffold> {
       appBar: AppBar(title: Text(widget.title)),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: <Widget>[
+          child: Column(children: [
             SizedBox(height: 250.0, child: widget.childBuilder()),
           ])),
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.refresh), onPressed: _handleButtonPress),
+          onPressed: _handleButtonPress, child: const Icon(Icons.refresh)),
     );
   }
 }

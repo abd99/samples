@@ -2,7 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:window_size/window_size.dart';
 
 import 'src/autofill.dart';
 import 'src/form_widgets.dart';
@@ -11,7 +15,27 @@ import 'src/sign_in_http.dart';
 import 'src/validation.dart';
 
 void main() {
+  setupWindow();
   runApp(const FormApp());
+}
+
+const double windowWidth = 480;
+const double windowHeight = 854;
+
+void setupWindow() {
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    WidgetsFlutterBinding.ensureInitialized();
+    setWindowTitle('Form Samples');
+    setWindowMinSize(const Size(windowWidth, windowHeight));
+    setWindowMaxSize(const Size(windowWidth, windowHeight));
+    getCurrentScreen().then((screen) {
+      setWindowFrame(Rect.fromCenter(
+        center: screen!.frame.center,
+        width: windowWidth,
+        height: windowHeight,
+      ));
+    });
+  }
 }
 
 final demos = [
@@ -41,7 +65,7 @@ final demos = [
 ];
 
 class FormApp extends StatelessWidget {
-  const FormApp({Key? key}) : super(key: key);
+  const FormApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +79,7 @@ class FormApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +96,7 @@ class HomePage extends StatelessWidget {
 class DemoTile extends StatelessWidget {
   final Demo? demo;
 
-  const DemoTile({this.demo, Key? key}) : super(key: key);
+  const DemoTile({this.demo, super.key});
 
   @override
   Widget build(BuildContext context) {

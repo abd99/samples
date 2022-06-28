@@ -11,10 +11,10 @@ import '../app.dart';
 import 'categories_dropdown.dart';
 
 class NewEntryForm extends StatefulWidget {
-  const NewEntryForm({Key? key}) : super(key: key);
+  const NewEntryForm({super.key});
 
   @override
-  _NewEntryFormState createState() => _NewEntryFormState();
+  State<NewEntryForm> createState() => _NewEntryFormState();
 }
 
 class _NewEntryFormState extends State<NewEntryForm> {
@@ -27,7 +27,7 @@ class _NewEntryFormState extends State<NewEntryForm> {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+      children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: CategoryDropdown(
@@ -61,11 +61,11 @@ class EditEntryForm extends StatefulWidget {
   const EditEntryForm({
     required this.entry,
     required this.onDone,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _EditEntryFormState createState() => _EditEntryFormState();
+  State<EditEntryForm> createState() => _EditEntryFormState();
 }
 
 class _EditEntryFormState extends State<EditEntryForm> {

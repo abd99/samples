@@ -15,12 +15,12 @@ class SongsTab extends StatefulWidget {
   static const androidIcon = Icon(Icons.music_note);
   static const iosIcon = Icon(CupertinoIcons.music_note);
 
-  const SongsTab({Key? key, this.androidDrawer}) : super(key: key);
+  const SongsTab({super.key, this.androidDrawer});
 
   final Widget? androidDrawer;
 
   @override
-  _SongsTabState createState() => _SongsTabState();
+  State<SongsTab> createState() => _SongsTabState();
 }
 
 class _SongsTabState extends State<SongsTab> {
@@ -83,20 +83,17 @@ class _SongsTabState extends State<SongsTab> {
   }
 
   void _togglePlatform() {
-    TargetPlatform _getOppositePlatform() {
-      if (defaultTargetPlatform == TargetPlatform.iOS) {
-        return TargetPlatform.android;
-      } else {
-        return TargetPlatform.iOS;
-      }
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      debugDefaultTargetPlatformOverride = TargetPlatform.android;
+    } else {
+      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
     }
 
-    debugDefaultTargetPlatformOverride = _getOppositePlatform();
     // This rebuilds the application. This should obviously never be
     // done in a real app but it's done here since this app
     // unrealistically toggles the current platform for demonstration
     // purposes.
-    WidgetsBinding.instance!.reassembleApplication();
+    WidgetsBinding.instance.reassembleApplication();
   }
 
   // ===========================================================================
@@ -145,8 +142,8 @@ class _SongsTabState extends State<SongsTab> {
         CupertinoSliverNavigationBar(
           trailing: CupertinoButton(
             padding: EdgeInsets.zero,
-            child: const Icon(CupertinoIcons.shuffle),
             onPressed: _togglePlatform,
+            child: const Icon(CupertinoIcons.shuffle),
           ),
         ),
         CupertinoSliverRefreshControl(

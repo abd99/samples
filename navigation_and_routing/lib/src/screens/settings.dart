@@ -9,10 +9,10 @@ import '../auth.dart';
 import '../routing.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
@@ -39,8 +39,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 class SettingsContent extends StatelessWidget {
   const SettingsContent({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => Column(
@@ -76,7 +76,7 @@ class SettingsContent extends StatelessWidget {
               builder: (context) => AlertDialog(
                 title: const Text('Alert!'),
                 content: const Text('The alert description goes here.'),
-                actions: <Widget>[
+                actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
                     child: const Text('Cancel'),

@@ -4,7 +4,6 @@
 
 import 'package:federated_plugin/federated_plugin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +26,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -62,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                     SnackBar(
                       backgroundColor: Theme.of(context).primaryColor,
                       content: Text(
-                        (error as PlatformException).message as String,
+                        (error as dynamic).message as String,
                       ),
                     ),
                   );
