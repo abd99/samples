@@ -45,7 +45,7 @@ class InfiniteProcessPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               'Summation Results',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           const Expanded(
@@ -54,20 +54,24 @@ class InfiniteProcessPage extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(elevation: 8.0),
-                    onPressed: () => controller.start(),
-                    child: const Text('Start'),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(elevation: 8.0),
-                    onPressed: () => controller.terminate(),
-                    child: const Text('Terminate'),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: OverflowBar(
+                  spacing: 8.0,
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(elevation: 8.0),
+                      onPressed: () => controller.start(),
+                      child: const Text('Start'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(elevation: 8.0),
+                      onPressed: () => controller.terminate(),
+                      child: const Text('Terminate'),
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -131,11 +135,12 @@ class InfiniteProcessIsolateController extends ChangeNotifier {
 
   void listen() {
     receivePort.listen((dynamic message) {
-      if (message is SendPort) {
-        newIceSP = message;
-        newIceSP.send(_currentMultiplier);
-      } else if (message is int) {
-        setCurrentResults(message);
+      switch (message) {
+        case SendPort():
+          newIceSP = message;
+          newIceSP.send(_currentMultiplier);
+        case int():
+          setCurrentResults(message);
       }
     });
   }

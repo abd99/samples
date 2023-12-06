@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:testing_app/models/favorites.dart';
 import 'package:testing_app/screens/favorites.dart';
@@ -19,9 +20,8 @@ class HomePage extends StatelessWidget {
         title: const Text('Testing Sample'),
         actions: [
           TextButton.icon(
-            style: TextButton.styleFrom(primary: Colors.white),
             onPressed: () {
-              Navigator.pushNamed(context, FavoritesPage.routeName);
+              context.go(FavoritesPage.fullPath);
             },
             icon: const Icon(Icons.favorite_border),
             label: const Text('Favorites'),

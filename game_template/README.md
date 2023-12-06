@@ -1,3 +1,7 @@
+The following template will be deprecated soon. Please refer to the new games repo for more genre-specific templates: https://github.com/flutter/games
+For more information, please refer to flutter.dev/games to see all resources available for flutter game developers. 
+
+Old template readme: 
 A starter game in Flutter with all the bells and whistles
 of a mobile (iOS & Android) game including the following features:
 
@@ -49,7 +53,6 @@ lib
 │   ├── ads
 │   ├── app_lifecycle
 │   ├── audio
-│   ├── crashlytics
 │   ├── game_internals
 │   ├── games_services
 │   ├── in_app_purchase
@@ -240,12 +243,9 @@ with their mouth.
 
 ## Crashlytics
 
-Crashlytics integration is disabled by default. But even if you don't
-enable it, you might find code in `lib/src/crashlytics` helpful.
-It gathers all log messages and errors, so that you can, at the very least,
-print them to the console.
+Crashlytics integration is disabled by default. 
 
-When enabled, this integration is a lot more powerful:
+When enabled, this integration is quite powerful:
 
 - Any crashes of your app are sent to the Firebase Crashlytics console.
 - Any uncaught exception thrown anywhere in your code is captured
@@ -256,14 +256,6 @@ When enabled, this integration is a lot more powerful:
   - Device model, orientation, RAM free, disk free
   - Operating system version
   - App version
-- In addition, log messages generated anywhere in your app 
-  (and from packages you use) are recorded in memory,
-  and are sent alongside the reports. This means that you can
-  learn what happened before the crash or exception
-  occurred.
-- Also, any generated log message with `Level.severe` or above
-  is also sent to Crashlytics.
-- You can customize these behaviors in `lib/src/crashlytics`.
 
 To enable Firebase Crashlytics, do the following:
 
@@ -273,7 +265,7 @@ To enable Firebase Crashlytics, do the following:
    You don't need to enable Analytics in the project if you don't want to.
 2. [Install `firebase-tools`](https://firebase.google.com/docs/cli?authuser=0#setup_update_cli)
    on your machine.
-3. [Install `flutterfire` CLI](https://firebase.flutter.dev/docs/cli#installation)
+3. [Install `flutterfire` CLI](https://firebase.google.com/docs/flutter/setup)
    on your machine.
 4. In the root of this project (the directory containing `pubspec.yaml`),
    run the following:
@@ -286,8 +278,7 @@ To enable Firebase Crashlytics, do the following:
           the correct code.
 5. Go to `lib/main.dart` and uncomment the lines that relate to Crashlytics.
 
-You should now be able to see crashes, errors, and 
-severe log messages in
+You should now be able to see crashes and errors in
 [console.firebase.google.com](https://console.firebase.google.com/).
 To test, add a button to your project, and throw whatever
 exception you like when the player presses it.
@@ -536,3 +527,45 @@ flutter pub run flutter_launcher_icons:main
 
 You can [configure](https://github.com/fluttercommunity/flutter_launcher_icons#book-guide)
 the look of the icon in the `flutter_icons:` section of `pubspec.yaml`.
+
+
+# Troubleshooting
+
+## CocoaPods
+
+When upgrading to higher versions of Flutter or plugins, you might encounter an error when
+building the iOS or macOS app. A good first thing to try is to delete the `ios/Podfile.lock`
+file (or `macos/Podfile.lock`, respectively), then trying to build again. (You can achieve
+a more thorough cleanup by running `flutter clean` instead.)
+
+If this doesn't help, here are some more methods:
+
+- See if everything is still okay with your Flutter and CocoaPods installation
+  by running `flutter doctor`. Revisit the macOS 
+  [Flutter installation guide](https://docs.flutter.dev/get-started/install/macos)
+  if needed.
+- Update CocoaPods specs directory:
+
+  ```sh
+  cd ios
+  pod repo update
+  cd ..
+  ```
+
+  (Substitute `ios` for `macos` when appropriate.)
+- Open the project in Xcode, 
+  [increase the build target](https://stackoverflow.com/a/38602597/1416886),
+  then select _Product_ > _Clean Build Folder_.
+
+## Warnings in console
+
+When running the game for the first time, you might see warnings like the following:
+
+> Note: Some input files use or override a deprecated API.
+
+or
+
+> warning: 'viewState' was deprecated in macOS 11.0: Use -initWithState: instead
+
+These warning come from the various plugins that are used by the template. They are not harmful 
+and can be ignored. The warnings are meant for the plugin authors, not for you, the game developer.

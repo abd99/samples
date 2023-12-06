@@ -5,22 +5,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:platform_channels/src/add_pet_details.dart';
+import 'package:platform_channels/main.dart' as app;
 
 void main() {
   group('AddPetDetails tests', () {
     var petList = <Map>[];
 
-    setUpAll(() {
-      const BasicMessageChannel<dynamic>(
-              'jsonMessageCodecDemo', JSONMessageCodec())
-          .setMockMessageHandler((dynamic message) async {
-        petList.add(message as Map);
-      });
-    });
-
     testWidgets('Enter pet details', (tester) async {
-      await tester.pumpWidget(const MaterialApp(home: AddPetDetails()));
+      tester.binding.defaultBinaryMessenger.setMockDecodedMessageHandler(
+        const BasicMessageChannel<dynamic>(
+            'jsonMessageCodecDemo', JSONMessageCodec()),
+        (dynamic message) async {
+          petList.add(message as Map);
+        },
+      );
+      var router = app.router('/petListScreen/addPetDetails');
+      await tester.pumpWidget(
+        MaterialApp.router(
+          routerConfig: router,
+        ),
+      );
 
       // Enter the breed of cat.
       await tester.enterText(find.byType(TextField), 'Persian');
@@ -33,6 +37,10 @@ void main() {
 
       expect(petList, isNotEmpty);
       expect(petList.last['breed'], 'Persian');
+
+      // Navigate back to /petListScreen
+      await tester.pumpAndSettle();
+      expect(router.routeInformationProvider.value.uri.path, '/petListScreen');
     });
   });
 }

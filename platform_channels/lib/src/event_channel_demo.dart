@@ -18,7 +18,7 @@ class EventChannelDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.headline5;
+    final textStyle = Theme.of(context).textTheme.headlineSmall;
     return Scaffold(
       appBar: AppBar(
         title: const Text('EventChannel Demo'),
@@ -27,32 +27,22 @@ class EventChannelDemo extends StatelessWidget {
         child: StreamBuilder<AccelerometerReadings>(
           stream: Accelerometer.readings,
           builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text((snapshot.error as PlatformException).message!);
-            } else if (snapshot.hasData) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'x axis: ${snapshot.data!.x.toStringAsFixed(3)}',
-                    style: textStyle,
-                  ),
-                  Text(
-                    'y axis: ${snapshot.data!.y.toStringAsFixed(3)}',
-                    style: textStyle,
-                  ),
-                  Text(
-                    'z axis: ${snapshot.data!.z.toStringAsFixed(3)}',
-                    style: textStyle,
-                  )
-                ],
-              );
-            }
-
-            return Text(
-              'No Data Available',
-              style: textStyle,
-            );
+            return switch (snapshot) {
+              AsyncSnapshot(hasError: true) =>
+                Text((snapshot.error as PlatformException).message!),
+              AsyncSnapshot(hasData: true) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('x axis: ${snapshot.data!.x.toStringAsFixed(3)}',
+                        style: textStyle),
+                    Text('y axis: ${snapshot.data!.y.toStringAsFixed(3)}',
+                        style: textStyle),
+                    Text('z axis: ${snapshot.data!.z.toStringAsFixed(3)}',
+                        style: textStyle)
+                  ],
+                ),
+              _ => Text('No Data Available', style: textStyle),
+            };
           },
         ),
       ),

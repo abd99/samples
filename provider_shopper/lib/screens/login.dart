@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MyLogin extends StatelessWidget {
   const MyLogin({super.key});
@@ -18,7 +19,7 @@ class MyLogin extends StatelessWidget {
             children: [
               Text(
                 'Welcome',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -36,10 +37,10 @@ class MyLogin extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/catalog');
+                  context.pushReplacement('/catalog');
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.yellow,
+                  backgroundColor: Colors.yellow,
                 ),
                 child: const Text('ENTER'),
               )
