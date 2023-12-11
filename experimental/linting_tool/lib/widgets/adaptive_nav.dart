@@ -5,7 +5,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:linting_tool/layout/adaptive.dart';
 import 'package:linting_tool/pages/default_lints_page.dart';
 import 'package:linting_tool/pages/home_page.dart';
@@ -93,17 +92,6 @@ class _NavViewState extends State<_NavView> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Flutter Linting Tool',
-          style: textTheme.titleSmall!.copyWith(
-            color: textTheme.bodyLarge!.color,
-          ),
-        ),
-        toolbarHeight: 38.0,
-        backgroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
       body: Row(
         children: [
           LayoutBuilder(

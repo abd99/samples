@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:linting_tool/app.dart';
@@ -22,6 +25,16 @@ Future<void> main() async {
   await Hive.openLazyBox<RulesProfile>('rules_profile');
 
   setWindowMinSize(const Size(600, 600));
+
+  if (Platform.isWindows) {
+    doWhenWindowReady(() {
+      const initialSize = Size(600, 450);
+      appWindow.minSize = initialSize;
+      appWindow.size = initialSize;
+      appWindow.alignment = Alignment.center;
+      appWindow.show();
+    });
+  }
 
   runApp(const LintingTool());
 }

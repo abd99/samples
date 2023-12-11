@@ -30,6 +30,9 @@ dependencies:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
+  bitsdojo_window: ^0.1.5
+  flutter_svg: ^2.0.9
+  animate_do: ^3.1.2
 
 dev_dependencies:
   analysis_defaults:

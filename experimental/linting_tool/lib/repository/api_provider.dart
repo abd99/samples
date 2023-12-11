@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:linting_tool/model/rule.dart';
 import 'package:yaml/yaml.dart';
@@ -30,7 +31,7 @@ class APIProvider {
 
   Future<YamlMap> getTemplateFile() async {
     final response = await httpClient.get(Uri.parse(
-        'https://raw.githubusercontent.com/flutter/flutter/main/packages/flutter_tools/templates/app_shared/analysis_options.yaml.tmpl'));
+        'https://raw.githubusercontent.com/flutter/flutter/76d5e62f42dffe3aba42bba9364c4469af1ff332/packages/flutter_tools/templates/app_shared/analysis_options.yaml.tmpl'));
     if (response.statusCode == 200) {
       return loadYaml(response.body) as YamlMap;
     } else {

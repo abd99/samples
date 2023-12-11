@@ -9,6 +9,7 @@ import 'package:linting_tool/model/rules_store.dart';
 import 'package:linting_tool/routes.dart' as routes;
 import 'package:linting_tool/theme/app_theme.dart';
 import 'package:linting_tool/widgets/adaptive_nav.dart';
+import 'package:linting_tool/widgets/app_title_bar.dart';
 import 'package:provider/provider.dart';
 
 final client = http.Client();
@@ -49,6 +50,16 @@ class _LintingToolState extends State<LintingTool> {
               );
           }
           return null;
+        },
+        builder: (context, child) {
+          return Column(
+            children: [
+              const AppTitleBar(),
+              Expanded(
+                child: child ?? const SizedBox.shrink(),
+              ),
+            ],
+          );
         },
       ),
     );
