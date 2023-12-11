@@ -40,7 +40,7 @@ class DefaultRulesPage extends StatelessWidget {
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.only(left: 80.0),
+          padding: const EdgeInsets.only(left: 40.0),
           child: TextButton.icon(
             onPressed: () {
               Navigator.pop(context);
