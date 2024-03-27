@@ -2,12 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:ui';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class CarouselDemo extends StatelessWidget {
   CarouselDemo({super.key});
-  static String routeName = '/misc/carousel';
+  static String routeName = 'misc/carousel';
 
   static const List<String> fileNames = [
     'assets/eat_cape_town_sm.jpg',
@@ -80,8 +80,8 @@ class _CarouselState extends State<Carousel> {
       controller: _controller,
       scrollBehavior: ScrollConfiguration.of(context).copyWith(
         dragDevices: {
-          PointerDeviceKind.touch,
-          PointerDeviceKind.mouse,
+          ui.PointerDeviceKind.touch,
+          ui.PointerDeviceKind.mouse,
         },
       ),
       itemBuilder: (context, index) => AnimatedBuilder(

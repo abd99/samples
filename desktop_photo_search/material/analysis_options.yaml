@@ -1,4 +1,5 @@
-include: ../../analysis_options.yaml
+include: package:analysis_defaults/flutter.yaml
 
-analyzer:
-  exclude: [lib/src/**.g.dart]
+linter:
+  rules:
+    sort_pub_dependencies: true

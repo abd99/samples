@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "dev.flutter.example.books"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -17,9 +17,13 @@ android {
     }
 
     buildTypes {
+        profile {
+            initWith debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig debug.signingConfig
         }
     }
     compileOptions {

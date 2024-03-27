@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../model/photo_search_model.dart';
 import '../unsplash/photo.dart';
 import '../widgets/photo_details.dart';
-import '../widgets/split.dart';
+import '../widgets/split.dart' as split;
 
 class UnsplashSearchContent extends StatefulWidget {
   const UnsplashSearchContent({super.key});
@@ -31,7 +31,7 @@ class _UnsplashSearchContentState extends State<UnsplashSearchContent> {
   Widget build(BuildContext context) {
     final photoSearchModel = Provider.of<PhotoSearchModel>(context);
 
-    return Split(
+    return split.Split(
       axis: Axis.horizontal,
       initialFirstFraction: 0.4,
       firstChild: Scrollbar(
@@ -48,22 +48,22 @@ class _UnsplashSearchContentState extends State<UnsplashSearchContent> {
             ? PhotoDetails(
                 photo: photoSearchModel.selectedPhoto!,
                 onPhotoSave: (photo) async {
-                  final path = await getSavePath(
+                  final saveLocation = await getSaveLocation(
                     suggestedName: '${photo.id}.jpg',
                     acceptedTypeGroups: [
-                      XTypeGroup(
+                      const XTypeGroup(
                         label: 'JPG',
                         extensions: ['jpg'],
                         mimeTypes: ['image/jpeg'],
                       ),
                     ],
                   );
-                  if (path != null) {
+                  if (saveLocation != null) {
                     final fileData =
                         await photoSearchModel.download(photo: photo);
                     final photoFile =
                         XFile.fromData(fileData, mimeType: 'image/jpeg');
-                    await photoFile.saveTo(path);
+                    await photoFile.saveTo(saveLocation.path);
                   }
                 },
               )

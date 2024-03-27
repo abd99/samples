@@ -70,12 +70,15 @@ class CounterModel extends ChangeNotifier {
 /// It offers two routes, one suitable for displaying as a full screen and
 /// another designed to be part of a larger UI.
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Module Title',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.blue,
+      ),
       routes: {
         '/': (context) => const FullScreenView(),
         '/mini': (context) => const Contents(),
@@ -87,7 +90,7 @@ class MyApp extends StatelessWidget {
 /// Wraps [Contents] in a Material [Scaffold] so it looks correct when displayed
 /// full-screen.
 class FullScreenView extends StatelessWidget {
-  const FullScreenView({Key? key}) : super(key: key);
+  const FullScreenView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +112,7 @@ class FullScreenView extends StatelessWidget {
 class Contents extends StatelessWidget {
   final bool showExit;
 
-  const Contents({this.showExit = false, Key? key}) : super(key: key);
+  const Contents({this.showExit = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -141,27 +144,27 @@ class Contents extends StatelessWidget {
                 Text(
                   'Window is ${mediaInfo.size.width.toStringAsFixed(1)} x '
                   '${mediaInfo.size.height.toStringAsFixed(1)}',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 16),
                 Consumer<CounterModel>(
                   builder: (context, model, child) {
                     return Text(
                       'Taps: ${model.count}',
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     );
                   },
                 ),
                 const SizedBox(height: 16),
                 Consumer<CounterModel>(
                   builder: (context, model, child) {
-                    return ElevatedButton(
+                    return FilledButton(
                       onPressed: () => model.increment(),
                       child: const Text('Tap me!'),
                     );
                   },
                 ),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () async {
                     // Use the url_launcher plugin to open the Flutter docs in
                     // a browser.
@@ -174,7 +177,7 @@ class Contents extends StatelessWidget {
                 ),
                 if (showExit) ...[
                   const SizedBox(height: 16),
-                  ElevatedButton(
+                  FilledButton(
                     onPressed: () => SystemNavigator.pop(),
                     child: const Text('Exit this screen'),
                   ),

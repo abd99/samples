@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Module Title',
+      theme: ThemeData.light(),
       routes: {
         '/': (context) => const FullScreenView(),
         '/mini': (context) => const Contents(),
@@ -128,14 +129,14 @@ class Contents extends StatelessWidget {
                 Text(
                   'Window is ${mediaInfo.size.width.toStringAsFixed(1)} x '
                   '${mediaInfo.size.height.toStringAsFixed(1)}',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 16),
                 Consumer<CounterModel>(
                   builder: (context, model, child) {
                     return Text(
                       'Taps: ${model.count}',
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     );
                   },
                 ),

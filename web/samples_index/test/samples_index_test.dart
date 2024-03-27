@@ -38,9 +38,6 @@ void main() {
       expect(sample.tags, hasLength(3));
       expect(sample.tags[1], 'kittens');
       expect(sample.platforms, hasLength(3));
-      expect(sample.links, hasLength(2));
-      expect(sample.links[1].text, 'author');
-      expect(sample.links[1].href, 'https://jpryan.me');
       expect(sample.type, 'sample');
       expect(sample.date, DateTime.parse('2019-12-15T02:59:43.1Z'));
       expect(sample.channel, 'stable');
@@ -107,7 +104,9 @@ void main() {
 
       // Test if various queries match these attributes
       expect(matchesQuery('foo', attributes), false);
+      expect(matchesQuery('Foo', attributes), false);
       expect(matchesQuery('kittens', attributes), true);
+      expect(matchesQuery('Kittens', attributes), true);
       expect(matchesQuery('tag:cats', attributes), true);
       expect(matchesQuery('tag:dogs', attributes), false);
       expect(matchesQuery('package:path', attributes), true);
@@ -123,8 +122,8 @@ void main() {
 
       // Test if queries match by type
       expect(matchesQuery('type:sample', attributes), true);
-      expect(matchesQuery('type:cookbook', attributes), false);
-      expect(matchesQuery('kittens type:cookbook', attributes), false);
+      expect(matchesQuery('type:demo', attributes), false);
+      expect(matchesQuery('kittens type:demo', attributes), false);
     });
   });
 
@@ -135,7 +134,7 @@ void main() {
       expect(parseHash('#?search=kittens&platform=web'),
           containsPair('platform', 'web'));
       expect(parseHash('#?type=sample'), containsPair('type', 'sample'));
-      expect(parseHash('#?type=cookbook'), containsPair('type', 'cookbook'));
+      expect(parseHash('#?type=demo'), containsPair('type', 'demo'));
     });
 
     test('can be set', () {

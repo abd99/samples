@@ -2,10 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
+import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:window_size/window_size.dart';
 
 import 'src/autofill.dart';
@@ -41,7 +42,7 @@ void setupWindow() {
 final demos = [
   Demo(
     name: 'Sign in with HTTP',
-    route: '/signin_http',
+    route: 'signin_http',
     builder: (context) => SignInHttpDemo(
       // This sample uses a mock HTTP client.
       httpClient: mockClient,
@@ -49,37 +50,55 @@ final demos = [
   ),
   Demo(
     name: 'Autofill',
-    route: '/autofill',
+    route: 'autofill',
     builder: (context) => const AutofillDemo(),
   ),
   Demo(
     name: 'Form widgets',
-    route: '/form_widgets',
+    route: 'form_widgets',
     builder: (context) => const FormWidgetsDemo(),
   ),
   Demo(
     name: 'Validation',
-    route: '/validation',
+    route: 'validation',
     builder: (context) => const FormValidationDemo(),
   ),
 ];
+
+final router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const HomePage(),
+      routes: [
+        for (final demo in demos)
+          GoRoute(
+            path: demo.route,
+            builder: (context, state) => demo.builder(context),
+          ),
+      ],
+    ),
+  ],
+);
 
 class FormApp extends StatelessWidget {
   const FormApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Form Samples',
-      theme: ThemeData(primarySwatch: Colors.teal),
-      routes: Map.fromEntries(demos.map((d) => MapEntry(d.route, d.builder))),
-      home: const HomePage(),
+      theme: ThemeData(
+        colorSchemeSeed: Colors.teal,
+      ),
+      routerConfig: router,
     );
   }
 }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +122,7 @@ class DemoTile extends StatelessWidget {
     return ListTile(
       title: Text(demo!.name),
       onTap: () {
-        Navigator.pushNamed(context, demo!.route);
+        context.go('/${demo!.route}');
       },
     );
   }

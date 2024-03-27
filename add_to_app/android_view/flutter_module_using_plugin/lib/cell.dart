@@ -15,7 +15,7 @@ void main() {
 }
 
 class Cell extends StatefulWidget {
-  const Cell({Key? key}) : super(key: key);
+  const Cell({super.key});
 
   @override
   State<StatefulWidget> createState() => _CellState();
@@ -94,7 +94,7 @@ class _CellState extends State<Cell> with WidgetsBindingObserver {
                           // Show a number provided by the platform based on
                           // the cell's index.
                           cellNumber.toString(),
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ],
                     ),

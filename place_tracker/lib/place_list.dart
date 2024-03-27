@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'place.dart';
-import 'place_details.dart';
 import 'place_tracker_app.dart';
 
 class PlaceList extends StatefulWidget {
@@ -35,10 +35,7 @@ class _PlaceListState extends State<PlaceList> {
             shrinkWrap: true,
             children: state.places
                 .where((place) => place.category == state.selectedCategory)
-                .map((place) => _PlaceListTile(
-                      place: place,
-                      onPlaceChanged: (value) => _onPlaceChanged(value),
-                    ))
+                .map((place) => _PlaceListTile(place: place))
                 .toList(),
           ),
         ),
@@ -51,16 +48,6 @@ class _PlaceListState extends State<PlaceList> {
     Provider.of<AppState>(context, listen: false)
         .setSelectedCategory(newCategory);
   }
-
-  void _onPlaceChanged(Place value) {
-    // Replace the place with the modified version.
-    final newPlaces =
-        List<Place>.from(Provider.of<AppState>(context, listen: false).places);
-    final index = newPlaces.indexWhere((place) => place.id == value.id);
-    newPlaces[index] = value;
-
-    Provider.of<AppState>(context, listen: false).setPlaces(newPlaces);
-  }
 }
 
 class _CategoryButton extends StatelessWidget {
@@ -68,6 +55,7 @@ class _CategoryButton extends StatelessWidget {
 
   final bool selected;
   final ValueChanged<PlaceCategory> onCategoryChanged;
+
   const _CategoryButton({
     required this.category,
     required this.selected,
@@ -76,17 +64,11 @@ class _CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late String buttonText;
-    switch (category) {
-      case PlaceCategory.favorite:
-        buttonText = 'Favorites';
-        break;
-      case PlaceCategory.visited:
-        buttonText = 'Visited';
-        break;
-      case PlaceCategory.wantToGo:
-        buttonText = 'Want To Go';
-    }
+    final buttonText = switch (category) {
+      PlaceCategory.favorite => 'Favorites',
+      PlaceCategory.visited => 'Visited',
+      PlaceCategory.wantToGo => 'Want To Go'
+    };
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12.0),
@@ -118,6 +100,7 @@ class _ListCategoryButtonBar extends StatelessWidget {
   final PlaceCategory selectedCategory;
 
   final ValueChanged<PlaceCategory> onCategoryChanged;
+
   const _ListCategoryButtonBar({
     required this.selectedCategory,
     required this.onCategoryChanged,
@@ -151,24 +134,14 @@ class _ListCategoryButtonBar extends StatelessWidget {
 class _PlaceListTile extends StatelessWidget {
   final Place place;
 
-  final ValueChanged<Place> onPlaceChanged;
   const _PlaceListTile({
     required this.place,
-    required this.onPlaceChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push<void>(
-        context,
-        MaterialPageRoute(builder: (context) {
-          return PlaceDetails(
-            place: place,
-            onChanged: (value) => onPlaceChanged(value),
-          );
-        }),
-      ),
+      onTap: () => context.go('/place/${place.id}'),
       child: Container(
         padding: const EdgeInsets.only(top: 16.0),
         child: Column(
@@ -196,7 +169,7 @@ class _PlaceListTile extends StatelessWidget {
             ),
             Text(
               place.description ?? '',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
             ),

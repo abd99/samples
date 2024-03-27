@@ -7,9 +7,14 @@ import 'package:path/path.dart' as p;
 import 'common.dart';
 import 'fix_base_tags.dart';
 
-final ignoredDirectories = ['_tool', 'samples_index'];
+const ignoredDirectories = [
+  '_tool',
+  '_packages/web_startup_analyzer',
+  '_packages/web_startup_analyzer/example',
+  'samples_index'
+];
 
-main() async {
+void main() async {
   final packageDirs = [
     ...listPackageDirs(Directory.current)
         .map((path) => p.relative(path, from: Directory.current.path))

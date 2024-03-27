@@ -24,7 +24,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: color,
+        colorSchemeSeed: color,
+        appBarTheme: AppBarTheme(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+          elevation: 8,
+        ),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -79,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             TextButton(
               onPressed: _incrementCounter,

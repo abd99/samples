@@ -38,13 +38,13 @@ class _LintExpansionTileState extends State<LintExpansionTile> {
       collapsedBackgroundColor: AppColors.white50,
       title: Text(
         rule.name,
-        style: textTheme.subtitle1!.copyWith(
+        style: textTheme.titleMedium!.copyWith(
           fontWeight: FontWeight.w700,
         ),
       ),
       subtitle: Text(
         rule.description,
-        style: textTheme.caption!,
+        style: textTheme.bodySmall!,
       ),
       initiallyExpanded: isExpanded,
       onExpansionChanged: (value) {
@@ -66,7 +66,7 @@ class _LintExpansionTileState extends State<LintExpansionTile> {
             children: [
               TextSpan(
                 text: 'Group:',
-                style: textTheme.subtitle2,
+                style: textTheme.titleSmall,
               ),
               TextSpan(
                 text: ' ${rule.group}',
@@ -79,11 +79,11 @@ class _LintExpansionTileState extends State<LintExpansionTile> {
           TextSpan(
             children: [
               TextSpan(
-                text: 'Maturity:',
-                style: textTheme.subtitle2,
+                text: 'State:',
+                style: textTheme.titleSmall,
               ),
               TextSpan(
-                text: ' ${rule.maturity}',
+                text: ' ${rule.state}',
               ),
             ],
           ),
@@ -94,7 +94,7 @@ class _LintExpansionTileState extends State<LintExpansionTile> {
             children: [
               TextSpan(
                 text: 'Incompatible:',
-                style: textTheme.subtitle2,
+                style: textTheme.titleSmall,
               ),
               TextSpan(
                 text: ' $incompatibleString',
@@ -108,7 +108,7 @@ class _LintExpansionTileState extends State<LintExpansionTile> {
             children: [
               TextSpan(
                 text: 'Sets:',
-                style: textTheme.subtitle2,
+                style: textTheme.titleSmall,
               ),
               TextSpan(
                 text: ' $setsString',
@@ -140,6 +140,7 @@ class _LintExpansionTileState extends State<LintExpansionTile> {
                   return const _ProfileTypeDialog();
                 },
               );
+              if (!context.mounted) return;
               if (destinationProfileType == ProfileType.newProfile) {
                 await showDialog<String>(
                   context: context,
@@ -263,7 +264,7 @@ class _NewProfileDialogState extends State<NewProfileDialog> {
               );
               await Provider.of<ProfilesStore>(context, listen: false)
                   .addToNewProfile(newProfile);
-              if (!mounted) return;
+              if (!context.mounted) return;
               Navigator.pop(context);
             }
           },
@@ -303,7 +304,7 @@ class _ExistingProfileDialogState extends State<ExistingProfileDialog> {
             onTap: () async {
               await profilesStore.addToExistingProfile(
                   savedProfiles[index], widget.rule);
-              if (!mounted) return;
+              if (!context.mounted) return;
               Navigator.pop(context);
             },
           ),

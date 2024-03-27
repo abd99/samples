@@ -101,7 +101,7 @@ class _SavedLintsPageState extends State<SavedLintsPage> {
                               var saved = await profilesStore
                                   .exportProfileFile(profile);
 
-                              if (!mounted) return;
+                              if (!context.mounted) return;
 
                               if (!saved) {
                                 _showSnackBar(
@@ -110,10 +110,8 @@ class _SavedLintsPageState extends State<SavedLintsPage> {
                                 );
                               }
 
-                              break;
                             case 'Delete':
                               await profilesStore.deleteProfile(profile);
-                              break;
                             default:
                           }
                         },

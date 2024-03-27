@@ -34,7 +34,7 @@ class App extends StatelessWidget {
       title: 'Ice Creams FTW',
       home: const HomePage(title: 'Ice Cream Stores in SF'),
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        colorSchemeSeed: Colors.pink,
         scaffoldBackgroundColor: Colors.pink[50],
       ),
     );
@@ -73,26 +73,25 @@ class _HomePageState extends State<HomePage> {
       body: StreamBuilder<QuerySnapshot>(
         stream: _iceCreamStores,
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          if (!snapshot.hasData) {
-            return const Center(child: Text('Loading...'));
-          }
-
-          return Stack(
-            children: [
-              StoreMap(
-                documents: snapshot.data!.docs,
-                initialPosition: initialPosition,
-                mapController: _mapController,
-              ),
-              StoreCarousel(
-                mapController: _mapController,
-                documents: snapshot.data!.docs,
-              ),
-            ],
-          );
+          return switch (snapshot) {
+            AsyncSnapshot(hasError: true) =>
+              Center(child: Text('Error: ${snapshot.error}')),
+            AsyncSnapshot(hasData: false) =>
+              const Center(child: Text('Loading...')),
+            _ => Stack(
+                children: [
+                  StoreMap(
+                    documents: snapshot.data!.docs,
+                    initialPosition: initialPosition,
+                    mapController: _mapController,
+                  ),
+                  StoreCarousel(
+                    mapController: _mapController,
+                    documents: snapshot.data!.docs,
+                  ),
+                ],
+              )
+          };
         },
       ),
     );

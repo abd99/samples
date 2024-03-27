@@ -60,13 +60,13 @@ class _SavedRuleTileState extends State<SavedRuleTile> {
               : null,
           title: Text(
             rule.name,
-            style: textTheme.subtitle1!.copyWith(
+            style: textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),
           subtitle: Text(
             rule.description,
-            style: textTheme.caption!,
+            style: textTheme.bodySmall!,
           ),
           initiallyExpanded: isExpanded,
           onExpansionChanged: (value) {
@@ -88,7 +88,7 @@ class _SavedRuleTileState extends State<SavedRuleTile> {
                 children: [
                   TextSpan(
                     text: 'Group:',
-                    style: textTheme.subtitle2,
+                    style: textTheme.titleSmall,
                   ),
                   TextSpan(
                     text: ' ${rule.group}',
@@ -101,11 +101,11 @@ class _SavedRuleTileState extends State<SavedRuleTile> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Maturity:',
-                    style: textTheme.subtitle2,
+                    text: 'State:',
+                    style: textTheme.titleSmall,
                   ),
                   TextSpan(
-                    text: ' ${rule.maturity}',
+                    text: ' ${rule.state}',
                   ),
                 ],
               ),
@@ -116,7 +116,7 @@ class _SavedRuleTileState extends State<SavedRuleTile> {
                 children: [
                   TextSpan(
                     text: 'Incompatible:',
-                    style: textTheme.subtitle2,
+                    style: textTheme.titleSmall,
                   ),
                   TextSpan(
                     text: ' $incompatibleString',
@@ -130,7 +130,7 @@ class _SavedRuleTileState extends State<SavedRuleTile> {
                 children: [
                   TextSpan(
                     text: 'Sets:',
-                    style: textTheme.subtitle2,
+                    style: textTheme.titleSmall,
                   ),
                   TextSpan(
                     text: ' $setsString',

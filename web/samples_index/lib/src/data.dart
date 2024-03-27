@@ -3,7 +3,7 @@
 // found in the LICENSE file
 
 /// Defines the data types for this project.
-library data;
+library;
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as path;
@@ -22,7 +22,7 @@ class Index {
 
   Index(this.samples);
 
-  factory Index.fromJson(Map json) => _$IndexFromJson(json);
+  factory Index.fromJson(Map<dynamic, dynamic> json) => _$IndexFromJson(json);
 
   Map<String, dynamic> toJson() => _$IndexToJson(this);
 }
@@ -36,11 +36,10 @@ class Sample {
   /// The author of the sample. Typically "Flutter"
   final String? author;
 
-  /// Screenshots of the sample or cookbook article. At least 1 screenshot is
-  /// required.
+  /// Screenshots of the sample. At least 1 screenshot is required.
   final List<Screenshot> screenshots;
 
-  /// A link to the source code or cookbook article if type is 'cookbook'.
+  /// A link to the source code.
   final String source;
 
   /// A link to this sample running in the browser.
@@ -68,11 +67,8 @@ class Sample {
   /// 'web'
   final List<String> platforms;
 
-  /// Links to display on the details page
-  final List<Link> links;
-
   /// The type of the sample. Supported values are either 'sample' or
-  /// 'cookbook'.
+  /// 'demo'.
   final String type;
 
   /// The date this sample was created.
@@ -94,13 +90,12 @@ class Sample {
     this.packages = const [],
     this.tags = const [],
     this.platforms = const [],
-    this.links = const [],
     required this.type,
     this.date,
     this.channel,
   });
 
-  factory Sample.fromJson(Map json) => _$SampleFromJson(json);
+  factory Sample.fromJson(Map<dynamic, dynamic> json) => _$SampleFromJson(json);
 
   Map<String, dynamic> toJson() => _$SampleToJson(this);
 
@@ -116,25 +111,25 @@ class Sample {
     buf.write(name.toLowerCase());
     buf.write(' ');
 
-    for (var tag in tags) {
+    for (final tag in tags) {
       buf.write('tag:${tag.toLowerCase()} ');
 
       // Allow tags to be searched without the tag: prefix
       buf.write('${tag.toLowerCase()} ');
     }
 
-    for (var platform in platforms) {
+    for (final platform in platforms) {
       buf.write('platform:$platform ');
 
       // Allow platforms to be searched without the tag: prefix
       buf.write('$platform ');
     }
 
-    for (var widget in widgets) {
+    for (final widget in widgets) {
       buf.write('widget:$widget ');
     }
 
-    for (var package in packages) {
+    for (final package in packages) {
       buf.write('package:$package ');
     }
 
@@ -167,20 +162,8 @@ class Screenshot {
 
   Screenshot(this.url, this.alt);
 
-  factory Screenshot.fromJson(Map json) => _$ScreenshotFromJson(json);
+  factory Screenshot.fromJson(Map<dynamic, dynamic> json) =>
+      _$ScreenshotFromJson(json);
 
   Map<String, dynamic> toJson() => _$ScreenshotToJson(this);
-}
-
-/// An external link displayed next to a sample
-@JsonSerializable(anyMap: true, checked: true)
-class Link {
-  final String text;
-  final String href;
-
-  Link(this.text, this.href);
-
-  factory Link.fromJson(Map json) => _$LinkFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LinkToJson(this);
 }

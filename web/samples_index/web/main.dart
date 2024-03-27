@@ -93,9 +93,6 @@ void setSelectedChips() {
     if (type == 'sample') {
       chipSet.chips[1].selected = true;
     }
-    if (type == 'cookbook') {
-      chipSet.chips[2].selected = true;
-    }
   }
 
   // Apply the platform from the hash in the URL
@@ -103,7 +100,7 @@ void setSelectedChips() {
       queryParams.containsKey(platformKey) ? queryParams[platformKey] : '';
   if (platform!.isNotEmpty) {
     if (platform == 'web') {
-      chipSet.chips[3].selected = true;
+      chipSet.chips[2].selected = true;
     }
   }
   if (platform.isEmpty && type.isEmpty) {
@@ -137,7 +134,7 @@ void filterCards() {
 
   // Filter out all elements with non-matching search-attrs
   var elements = querySelectorAll('[search-attrs]');
-  for (var element in elements) {
+  for (final element in elements) {
     var searchAttributes = element.attributes['search-attrs'];
     if (matchesQuery(searchQuery, searchAttributes!)) {
       element.hidden = false;
@@ -147,16 +144,8 @@ void filterCards() {
   }
 }
 
-Map<String, String> paramsForChip(int index) {
-  switch (index) {
-    case 1:
-      return {typeKey: 'sample'};
-    case 2:
-      return {typeKey: 'cookbook'};
-    case 3:
-      return {platformKey: 'web'};
-    case 0:
-    default:
-      return {};
-  }
-}
+Map<String, String> paramsForChip(int index) => switch (index) {
+      1 => {typeKey: 'sample'},
+      2 => {platformKey: 'web'},
+      _ => {}
+    };
